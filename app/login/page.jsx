@@ -16,10 +16,10 @@ import {
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { useActionState, useState } from "react";
-import { signupAction } from "../actions/auth";
 import { useFormStatus } from "react-dom";
+import { loginAction } from "../actions/auth";
 
-export default function SignupPage() {
+export default function LoginPage() {
   // password visibility toggle
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -31,9 +31,9 @@ export default function SignupPage() {
   };
   //
 
-  const [state, formAction] = useActionState(signupAction, {
+  const [state, formAction] = useActionState(loginAction, {
     success: false,
-    errors: {},
+    errors: null,
     user: null,
     message: "",
   });
@@ -46,7 +46,7 @@ export default function SignupPage() {
           component="h1"
           align="center"
         >
-          Sign up
+          Login
         </Typography>
         <CardContent>
           <form action={formAction} method="POST">
@@ -59,16 +59,6 @@ export default function SignupPage() {
                 size="small"
                 error={!!state.errors?.email}
                 helperText={state.errors?.email}
-                sx={{ "& .MuiFormHelperText-root": { mx: "1px" } }}
-              />
-
-              <TextField
-                variant="outlined"
-                label="Name*"
-                name="name"
-                size="small"
-                error={!!state.errors?.name}
-                helperText={state.errors?.name}
                 sx={{ "& .MuiFormHelperText-root": { mx: "1px" } }}
               />
 
@@ -131,7 +121,7 @@ function Submit() {
       sx={{ fontWeight: "bold", py: "8px" }}
       disabled={pending}
     >
-      {pending ? "Signing up..." : "Sign up"}
+      {pending ? "Logging in..." : "Log in"}
     </Button>
   );
 }
