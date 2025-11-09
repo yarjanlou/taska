@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Providers>
-        <body className={`${montserrat.className} min-h-screen antialiased`}>
+        <body className={`${montserrat.className} min-h-screen`}>
           {children}
         </body>
       </Providers>

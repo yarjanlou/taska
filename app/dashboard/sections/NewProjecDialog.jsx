@@ -8,13 +8,15 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 export default function NewProjectDialog({ open, onClose }) {
   const [title, setTitle] = useState("");
   const [error, setError] = useState(null);
-  close = () => {
+  const queryClient = useQueryClient();
+
+  const close = () => {
     onClose();
     setError(null);
     setTitle("");
@@ -25,6 +27,7 @@ export default function NewProjectDialog({ open, onClose }) {
     onSuccess: () => {
       close();
       setTitle("");
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
     },
   });
 

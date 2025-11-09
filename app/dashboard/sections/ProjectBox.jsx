@@ -1,12 +1,19 @@
 import { Avatar, Box } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
+import { useSelectedProject } from "@/context/SelectedProjectContext";
 
-export default function ProjectBox({ title }) {
+export default function ProjectBox({ title, id }) {
+  const { selectedProject, setSelectedProject } = useSelectedProject();
+  const isSelected = selectedProject === id;
+
   return (
-    <Box className="flex items-center gap-2.5 border border-gray-200 px-1.5 py-1 rounded-md">
+    <Box
+      className={`flex cursor-pointer items-center gap-2.5 rounded-md border border-gray-200 px-1.5 py-1 transition-all duration-200 ${isSelected ? "bg-primary/90" : "bg-white"}`}
+      onClick={() => setSelectedProject(id)}
+    >
       <Avatar
         sx={{
-          bgcolor: "#365dff1a",
+          bgcolor: isSelected ? "#fff" : "#e1e9ff",
           color: "#365dff",
           width: "24px",
           height: "24px",
@@ -21,7 +28,11 @@ export default function ProjectBox({ title }) {
           }}
         />
       </Avatar>
-      <span className="text-[13px] font-medium">{title}</span>
+      <span
+        className={`text-[13px] ${isSelected ? "font-semibold text-white" : "font-medium text-neutral-800"}`}
+      >
+        {title}
+      </span>
     </Box>
   );
 }
