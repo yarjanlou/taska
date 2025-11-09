@@ -1,3 +1,4 @@
+import { createProject } from "@/lib/services/projects";
 import {
   Button,
   Dialog,
@@ -7,13 +8,37 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
 export default function NewProjectDialog({ open, onClose }) {
   const [title, setTitle] = useState("");
+  const [error, setError] = useState(null);
+  close = () => {
+    onClose();
+    setError(null);
+    setTitle("");
+  };
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: createProject,
+    onSuccess: () => {
+      close();
+      setTitle("");
+    },
+  });
+
+  const handlesubmit = (e) => {
+    e.preventDefault();
+    if (!title.trim()) {
+      setError("Project title is required.");
+      return;
+    }
+    mutate({ title });
+  };
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
+    <Dialog open={open} onClose={close} fullWidth maxWidth="xs">
       <DialogTitle
         sx={{
           fontSize: "16px",
@@ -30,13 +55,12 @@ export default function NewProjectDialog({ open, onClose }) {
         help you organize and manage your projects effectively.
       </DialogContentText>
       <DialogContent sx={{ pt: "5px" }}>
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form>
           <TextField
             autoFocus
             required
             size="small"
             margin="dense"
-            name="projectTitle"
             label="Project Title"
             type="text"
             fullWidth
@@ -44,25 +68,33 @@ export default function NewProjectDialog({ open, onClose }) {
             slotProps={{
               inputLabel: { sx: { fontSize: "14px" } },
             }}
-            // className="placeholder:text-xs!"
+            error={!!error}
+            // helperText={error}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </form>
       </DialogContent>
       <DialogActions sx={{ px: "20px", pb: "20px" }}>
         <Button
           variant="outlined"
-          onClick={onClose}
+          onClick={close}
           sx={{ px: "20px", py: "5px", fontSize: "13px", fontWeight: "600" }}
         >
           Cancel
         </Button>
         <Button
-          type="submit"
+          onClick={handlesubmit}
+          disabled={isPending}
           variant="contained"
-          onClick={() => {}}
-          sx={{ px: "20px", py: "6px", fontSize: "13px", fontWeight: "600" }}
+          sx={{
+            width: "140px",
+            py: "6px",
+            fontSize: "13px",
+            fontWeight: "600",
+          }}
         >
-          Add
+          {isPending ? "Creating..." : "Create"}
         </Button>
       </DialogActions>
     </Dialog>
