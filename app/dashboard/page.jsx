@@ -1,3 +1,9 @@
+import UserDashboard from "./sections/UserDashboard";
+
 export default function DashboardPage() {
-  return <div></div>;
+  return (
+    <div>
+      <UserDashboard />
+    </div>
+  );
 }

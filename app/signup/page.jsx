@@ -1,42 +1,56 @@
 "use client";
 
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import PasswordInput from "@/components/ui/PasswordInput";
+import { signup } from "@/lib/services/auth";
 import {
   Button,
   Card,
   CardContent,
-  FormControl,
-  FormHelperText,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import { useActionState, useState } from "react";
-import { signupAction } from "../actions/auth";
-import { useFormStatus } from "react-dom";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function SignupPage() {
-  // password visibility toggle
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-  const handleMouseUpPassword = (event) => {
-    event.preventDefault();
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+  const router = useRouter();
+
+  // validation
+  const validate = () => {
+    const newErrors = {};
+
+    if (!email.trim()) newErrors.email = "email is required.";
+    if (!name.trim()) newErrors.name = "name is required.";
+    if (!password.trim()) newErrors.password = "password is required.";
+    else if (password.length < 8)
+      newErrors.password = "Password must be at least 8 characters.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
   //
 
-  const [state, formAction] = useActionState(signupAction, {
-    success: false,
-    errors: {},
-    user: null,
-    message: "",
+  const { mutate, isPending, data } = useMutation({
+    mutationFn: signup,
+    onSuccess: () => {
+      router.push("/dashboard");
+    },
+    // onError: (error) => {
+    //   console.error("Signup error:", error);
+    // },
   });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+    mutate({ email, password, name });
+  };
 
   return (
     <div className="relative flex size-full items-center justify-center pt-25 md:pt-30">
@@ -49,89 +63,48 @@ export default function SignupPage() {
           Sign up
         </Typography>
         <CardContent>
-          <form action={formAction} method="POST">
+          <form onSubmit={handleSubmit}>
             <Stack spacing={2}>
               <TextField
                 variant="outlined"
                 label="Email*"
-                name="email"
-                id="email"
                 size="small"
-                error={!!state.errors?.email}
-                helperText={state.errors?.email}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                error={!!errors?.email}
+                helperText={errors?.email}
                 sx={{ "& .MuiFormHelperText-root": { mx: "1px" } }}
               />
 
               <TextField
                 variant="outlined"
                 label="Name*"
-                name="name"
                 size="small"
-                error={!!state.errors?.name}
-                helperText={state.errors?.name}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                error={!!errors?.name}
+                helperText={errors?.name}
                 sx={{ "& .MuiFormHelperText-root": { mx: "1px" } }}
               />
 
-              <FormControl
-                variant="outlined"
-                size="small"
-                fullWidth
-                error={!!state.errors?.password}
+              <PasswordInput
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                error={!!errors?.password}
+                helperText={errors?.password}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{ fontWeight: "bold", py: "8px" }}
+                disabled={isPending}
               >
-                <InputLabel htmlFor="password">Password*</InputLabel>
-                <OutlinedInput
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label={
-                          showPassword
-                            ? "hide the password"
-                            : "display the password"
-                        }
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        onMouseUp={handleMouseUpPassword}
-                        edge="end"
-                        sx={{ width: "33px", height: "33px" }}
-                      >
-                        {showPassword ? (
-                          <VisibilityOff sx={{ fontSize: "1.3rem" }} />
-                        ) : (
-                          <Visibility sx={{ fontSize: "1.3rem" }} />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="Password*"
-                />
-                {state.errors?.password && (
-                  <FormHelperText sx={{ mx: "1px" }}>
-                    {state.errors?.password}
-                  </FormHelperText>
-                )}
-              </FormControl>
-              <Submit />
+                {isPending ? "Signing up..." : "Sign up"}
+              </Button>
             </Stack>
           </form>
         </CardContent>
       </Card>
     </div>
-  );
-}
-
-function Submit() {
-  const { pending } = useFormStatus();
-  return (
-    <Button
-      type="submit"
-      variant="contained"
-      sx={{ fontWeight: "bold", py: "8px" }}
-      disabled={pending}
-    >
-      {pending ? "Signing up..." : "Sign up"}
-    </Button>
   );
 }
