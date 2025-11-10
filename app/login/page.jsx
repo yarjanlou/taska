@@ -92,6 +92,14 @@ export default function LoginPage() {
               </Button>
             </Stack>
           </form>
+          <Stack mt={3} alignItems="center">
+            <Typography variant="body2" color="textSecondary">
+              Don't have an account?{" "}
+              <a href="/signup" className="text-primary font-medium">
+                Sign up
+              </a>
+            </Typography>
+          </Stack>
         </CardContent>
       </Card>
     </div>

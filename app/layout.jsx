@@ -1,6 +1,7 @@
 import "./globals.css";
-import Providers from "./providers";
+
 import { Montserrat } from "next/font/google";
+import Providres from "./providers/Providers";
 
 export const metadata = {
   title: "Create Next App",
@@ -14,11 +15,11 @@ const montserrat = Montserrat({
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Providers>
+      <Providres>
         <body className={`${montserrat.className} min-h-screen`}>
           {children}
         </body>
-      </Providers>
+      </Providres>
     </html>
   );
 }

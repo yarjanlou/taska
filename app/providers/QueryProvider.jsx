@@ -27,7 +27,7 @@ function getQueryClient() {
   }
 }
 
-export default function Providers({ children }) {
+export default function QueryProvider({ children }) {
   const queryClient = getQueryClient();
 
   return (
