@@ -9,7 +9,7 @@ export default function Header() {
       <div className="flex size-full items-center justify-end px-6">
         <div className="flex items-center gap-2">
           <StringAvatar name={userName} />
-          <span className="text-sm font-medium capitalize">{userName}</span>
+          <span className="text-[13px] font-medium capitalize">{userName}</span>
         </div>
       </div>
     </div>

@@ -2,10 +2,11 @@ import { Button } from "@mui/material";
 
 export default function ImageInput({ imageFile, onChange }) {
   return (
-    <div className="my-2 flex items-center gap-8">
+    <div className="my-2 flex items-center gap-6">
       <input
         accept="image/*"
         type="file"
+        multiple
         id="upload-image"
         className="hidden"
         onChange={onChange}
@@ -28,13 +29,14 @@ export default function ImageInput({ imageFile, onChange }) {
         </Button>
       </label>
 
-      {!imageFile ? (
+      {imageFile.length === 0 ? (
         <p className="text-xs font-medium text-neutral-500">
           no image uploaded.
         </p>
       ) : (
         <p className="text-xs font-medium text-neutral-500">
-          Selected: {imageFile?.name}
+          {imageFile?.length} {imageFile.length > 1 ? "images" : "image"}{" "}
+          selected.
         </p>
       )}
     </div>

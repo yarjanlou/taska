@@ -1,0 +1,112 @@
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Stack,
+} from "@mui/material";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import { useState } from "react";
+import Image from "next/image";
+
+export default function AttachmentButton({ files, taskId }) {
+  const [open, setOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const baseUrl = process.env.NEXT_PUBLIC_PB_URL;
+
+  return (
+    <>
+      <Button
+        variant="text"
+        disableRipple
+        onClick={() => setOpen(true)}
+        sx={{
+          p: "1px",
+          width: "fit-content",
+          justifyContent: "start",
+          "&:hover": {
+            bgcolor: "transparent",
+          },
+        }}
+      >
+        <AttachFileIcon sx={{ fontSize: "16px", rotate: "45deg" }} />
+        <span className="ml-px text-xs font-medium">{files.length}</span>
+      </Button>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle
+          sx={{ fontSize: "18px" }}
+          className="flex items-center gap-1 text-neutral-600"
+        >
+          <AttachFileIcon sx={{ fontSize: "18px", rotate: "45deg" }} />
+          Attachments
+        </DialogTitle>
+        <DialogContent>
+          <Stack spacing={0.5}>
+            {files.map((file, index) => (
+              <Box
+                key={index}
+                className="flex cursor-pointer items-center gap-4 rounded-md px-2 py-1.5 hover:bg-neutral-100"
+                onClick={() => setSelectedFile(file)}
+              >
+                <div className="relative size-10 cursor-pointer overflow-hidden rounded-md">
+                  <Image
+                    src={`${baseUrl}/api/files/tasks/${taskId}/${file}`}
+                    alt="attachment image"
+                    fill
+                    className="w-full"
+                    unoptimized
+                  />
+                </div>
+                <div>
+                  <p className="text-[13px] text-neutral-500">{file}</p>
+                </div>
+              </Box>
+            ))}
+          </Stack>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={!!selectedFile}
+        onClose={() => setSelectedFile(null)}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogContent
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            overflow: "hidden",
+            py: "30px",
+          }}
+        >
+          {selectedFile && (
+            <Box
+              sx={{
+                position: "relative",
+                width: "100%",
+                height: "500px",
+              }}
+            >
+              <Image
+                src={`${baseUrl}/api/files/tasks/${taskId}/${selectedFile}`}
+                alt={selectedFile}
+                fill
+                className="object-contain"
+                unoptimized
+              />
+            </Box>
+          )}
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}

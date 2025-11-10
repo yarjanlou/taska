@@ -1,9 +1,9 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import { Box, Stack, Typography } from "@mui/material";
 import TaskCard from "./TaskCard";
 import NewTask from "./NewTask";
+import Loading from "@/components/ui/Loading";
 
-export default function TaskGroup({ title, color, tasks, status }) {
+export default function TaskGroup({ title, color, tasks, status, isLoading }) {
   return (
     <div className="flex-1">
       <Stack direction="row" spacing={0.75} alignItems="center" mb={2}>
@@ -21,9 +21,13 @@ export default function TaskGroup({ title, color, tasks, status }) {
       </Stack>
       <NewTask status={status} />
       <Stack spacing={1}>
-        {tasks?.map((task) => (
-          <TaskCard key={task.title} {...task} />
-        ))}
+        {isLoading ? (
+          <div className="py-2">
+            <Loading />
+          </div>
+        ) : (
+          tasks?.map((task) => <TaskCard key={task.title} {...task} />)
+        )}
       </Stack>
     </div>
   );

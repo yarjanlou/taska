@@ -18,7 +18,7 @@ import { useState } from "react";
 export default function NewTaskDialog({ open, onClose, status }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState(null);
+  const [images, setImages] = useState([]);
   const [error, setError] = useState(null);
   const { selectedProject } = useSelectedProject();
   const queryClient = useQueryClient();
@@ -27,7 +27,7 @@ export default function NewTaskDialog({ open, onClose, status }) {
     onClose();
     setTitle("");
     setDescription("");
-    setImage(null);
+    setImages([]);
     setError(null);
   };
 
@@ -53,7 +53,7 @@ export default function NewTaskDialog({ open, onClose, status }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
-    mutate({ title, description, image, selectedProject, status });
+    mutate({ title, description, images, selectedProject, status });
   };
 
   return (
@@ -74,7 +74,7 @@ export default function NewTaskDialog({ open, onClose, status }) {
         can also attach an optional image.
       </DialogContentText>
       <DialogContent sx={{ px: "20px", pb: "10px" }}>
-        <form>
+        <form onSubmit={handleSubmit}>
           <TextField
             autoFocus
             required
@@ -89,6 +89,11 @@ export default function NewTaskDialog({ open, onClose, status }) {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             error={!!error?.title}
+            sx={{
+              "& .MuiInputBase-input": {
+                fontSize: "15px",
+              },
+            }}
           />
           <TextField
             required
@@ -105,35 +110,50 @@ export default function NewTaskDialog({ open, onClose, status }) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             error={!!error?.description}
+            sx={{
+              "& .MuiInputBase-input": {
+                fontSize: "15px",
+                overflowY: "scroll",
+                scrollbarWidth: "none",
+                "&::-webkit-scrollbar": {
+                  display: "none",
+                },
+              },
+            }}
           />
           <ImageInput
-            imageFile={image}
-            onChange={(e) => setImage(e.target.files[0])}
+            imageFile={images}
+            onChange={(e) => setImages(Array.from(e.target.files))}
           />
+          <div className="mt-8 flex w-full items-center justify-end gap-2 pb-2.5">
+            <Button
+              variant="outlined"
+              onClick={close}
+              sx={{
+                px: "20px",
+                py: "5px",
+                fontSize: "13px",
+                fontWeight: "600",
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              disabled={isPending || selectedProject == null}
+              variant="contained"
+              sx={{
+                width: "140px",
+                py: "6px",
+                fontSize: "13px",
+                fontWeight: "600",
+              }}
+            >
+              {isPending ? "Creating..." : "Create"}
+            </Button>
+          </div>
         </form>
       </DialogContent>
-      <DialogActions sx={{ px: "20px", pb: "20px", pt: "14px" }}>
-        <Button
-          variant="outlined"
-          onClick={close}
-          sx={{ px: "20px", py: "5px", fontSize: "13px", fontWeight: "600" }}
-        >
-          Cancel
-        </Button>
-        <Button
-          onClick={handleSubmit}
-          disabled={isPending}
-          variant="contained"
-          sx={{
-            width: "140px",
-            py: "6px",
-            fontSize: "13px",
-            fontWeight: "600",
-          }}
-        >
-          {isPending ? "Creating..." : "Create"}
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }

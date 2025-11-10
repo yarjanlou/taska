@@ -58,7 +58,7 @@ export default function NewProjectDialog({ open, onClose }) {
         help you organize and manage your projects effectively.
       </DialogContentText>
       <DialogContent sx={{ pt: "5px" }}>
-        <form>
+        <form onSubmit={handlesubmit}>
           <TextField
             autoFocus
             required
@@ -76,30 +76,35 @@ export default function NewProjectDialog({ open, onClose }) {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
+          <div className="mt-6 flex w-full items-center justify-end gap-2">
+            <Button
+              variant="outlined"
+              onClick={close}
+              sx={{
+                px: "20px",
+                py: "5px",
+                fontSize: "13px",
+                fontWeight: "600",
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              disabled={isPending}
+              variant="contained"
+              sx={{
+                width: "140px",
+                py: "6px",
+                fontSize: "13px",
+                fontWeight: "600",
+              }}
+            >
+              {isPending ? "Creating..." : "Create"}
+            </Button>
+          </div>
         </form>
       </DialogContent>
-      <DialogActions sx={{ px: "20px", pb: "20px" }}>
-        <Button
-          variant="outlined"
-          onClick={close}
-          sx={{ px: "20px", py: "5px", fontSize: "13px", fontWeight: "600" }}
-        >
-          Cancel
-        </Button>
-        <Button
-          onClick={handlesubmit}
-          disabled={isPending}
-          variant="contained"
-          sx={{
-            width: "140px",
-            py: "6px",
-            fontSize: "13px",
-            fontWeight: "600",
-          }}
-        >
-          {isPending ? "Creating..." : "Create"}
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }

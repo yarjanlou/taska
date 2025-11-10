@@ -1,13 +1,18 @@
-import { Stack, Typography } from "@mui/material";
 import ProjectBox from "./ProjectBox";
 import { useQuery } from "@tanstack/react-query";
 import { getUserProjects } from "@/lib/services/projects";
 import { useSelectedProject } from "@/context/SelectedProjectContext";
 import { useEffect } from "react";
+import Loading from "@/components/ui/Loading";
+import { Stack, Typography } from "@mui/material";
 
 export default function Projects() {
   const { selectedProject, setSelectedProject } = useSelectedProject();
-  const { data: projects = [], isSuccess } = useQuery({
+  const {
+    data: projects = [],
+    isSuccess,
+    isLoading,
+  } = useQuery({
     queryKey: ["projects"],
     queryFn: getUserProjects,
   });
@@ -18,16 +23,34 @@ export default function Projects() {
     }
   }, [isSuccess, projects, selectedProject, setSelectedProject]);
 
+  if (isLoading) {
+    return (
+      <div className="px-2 py-1.5">
+        <Loading alinment="start" size="size-[8px]" />
+      </div>
+    );
+  }
+
+  if (projects.length === 0 && !isLoading) {
+    return (
+      <Typography
+        variant="body2"
+        sx={{ fontSize: "13px", px: "2px", py: "6px", color: "text.secondary" }}
+      >
+        No projects available.
+      </Typography>
+    );
+  }
+
   return (
-    <div className="">
-      <Stack spacing={1}>
-        <Typography variant="h6" sx={{ fontSize: "15px", px: "2px" }}>
-          Projects
-        </Typography>
-        {projects?.map((project) => (
-          <ProjectBox key={project.id} title={project.title} id={project.id} />
-        ))}
-      </Stack>
-    </div>
+    <Stack spacing={1}>
+      {projects.map((project) => (
+        <ProjectBox
+          key={project.id}
+          project={project}
+          isSelected={selectedProject === project.id}
+        />
+      ))}
+    </Stack>
   );
 }

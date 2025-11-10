@@ -1,14 +1,18 @@
 import { Card, Stack, Typography } from "@mui/material";
+import AttachmentButton from "./AttachmentButton";
 
-export default function TaskCard({ title, description }) {
+export default function TaskCard({ id, title, description, images }) {
   return (
-    <Card className="h-[120px] rounded-md! px-5 py-4" variant="outlined">
+    <Card
+      className="relative h-[130px] rounded-md! px-5 py-4"
+      variant="outlined"
+    >
       <Stack spacing={1}>
         <Typography variant="span" className="text-[13px] font-semibold">
           {title}
         </Typography>
         <Typography
-          variant="p"
+          variant="body2"
           className="text-xs font-medium text-neutral-400"
           sx={{
             display: "-webkit-box",
@@ -22,6 +26,11 @@ export default function TaskCard({ title, description }) {
           {description}
         </Typography>
       </Stack>
+      <div className="absolute inset-x-0 bottom-0 h-1/4 w-full border-t border-neutral-200">
+        <div className="h-full px-4 py-0.5 text-neutral-500">
+          <AttachmentButton files={images} taskId={id} />
+        </div>
+      </div>
     </Card>
   );
 }

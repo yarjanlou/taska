@@ -6,7 +6,7 @@ import { getTasksByProject } from "@/lib/services/tasks";
 export default function TasksContainer() {
   const { selectedProject } = useSelectedProject();
 
-  const { data: tasks } = useQuery({
+  const { data: tasks, isLoading } = useQuery({
     queryKey: ["tasks", selectedProject],
     queryFn: () => getTasksByProject(selectedProject),
   });
@@ -19,18 +19,21 @@ export default function TasksContainer() {
           color="#f87878"
           tasks={tasks?.filter((task) => task.status === "TODO")}
           status="TODO"
+          isLoading={isLoading}
         />
         <TaskGroup
           title="In Progress"
           color="#365dff"
           tasks={tasks?.filter((task) => task.status === "INPROGRESS")}
           status="INPROGRESS"
+          isLoading={isLoading}
         />
         <TaskGroup
           title="Done"
           color="#4ebf5c"
           tasks={tasks?.filter((task) => task.status === "DONE")}
           status="DONE"
+          isLoading={isLoading}
         />
       </div>
     </div>

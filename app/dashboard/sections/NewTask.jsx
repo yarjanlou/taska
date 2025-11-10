@@ -2,13 +2,16 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import NewTaskDialog from "./NewTaskDialog";
 import AddIcon from "@mui/icons-material/Add";
+import { useSelectedProject } from "@/context/SelectedProjectContext";
 
 export default function NewTask({ status }) {
   const [open, setOpen] = useState(false);
+  const { selectedProject } = useSelectedProject();
   return (
     <>
       <Button
         onClick={() => setOpen(true)}
+        disabled={selectedProject == null}
         variant="contained"
         fullWidth
         startIcon={<AddIcon sx={{ fontSize: "16px" }} />}

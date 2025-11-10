@@ -1,11 +1,7 @@
 import { Avatar, Box } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
-import { useSelectedProject } from "@/context/SelectedProjectContext";
 
-export default function ProjectBox({ title, id }) {
-  const { selectedProject, setSelectedProject } = useSelectedProject();
-  const isSelected = selectedProject === id;
-
+export default function ProjectBox({ project: { title, id }, isSelected }) {
   return (
     <Box
       className={`flex cursor-pointer items-center gap-2.5 rounded-md border border-gray-200 px-1.5 py-1 transition-all duration-200 ${isSelected ? "bg-primary/90" : "bg-white"}`}
