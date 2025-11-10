@@ -1,9 +1,12 @@
+import AuthGuard from "@/components/AuthGuard";
 import UserDashboard from "./sections/UserDashboard";
 
 export default function DashboardPage() {
   return (
     <div>
-      <UserDashboard />
+      <AuthGuard>
+        <UserDashboard />
+      </AuthGuard>
     </div>
   );
 }

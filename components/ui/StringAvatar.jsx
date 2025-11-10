@@ -35,13 +35,13 @@ export default function StringAvatar({ name }) {
 
   return (
     <Avatar
-      {...stringAvatar("Kent did")}
+      {...stringAvatar(name)}
       sx={{
         width: "27px",
         height: "27px",
         fontSize: "12px",
         fontWeight: "600",
-        ...stringAvatar("Kent did").sx,
+        ...stringAvatar(name).sx,
       }}
     />
   );
