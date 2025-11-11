@@ -7,10 +7,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: process.env.NEXT_PUBLIC_PB_URL?.replace(
-          /^https?:\/\//,
-          "",
-        ).replace(/\/$/, ""),
+        hostname: "jolly-jennings-nkmfaj8pmf.liara.run",
         port: "",
         pathname: "/api/files/tasks/**",
       },
