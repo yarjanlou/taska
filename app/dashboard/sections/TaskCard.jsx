@@ -1,7 +1,15 @@
 import { Card, Stack, Typography } from "@mui/material";
 import AttachmentButton from "./AttachmentButton";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 
-export default function TaskCard({ id, title, description, images }) {
+dayjs.extend(utc);
+
+export default function TaskCard({ id, title, description, images, deadline }) {
+  const formattedDeadline = deadline
+    ? dayjs.utc(deadline).local().format("MMM D, YYYY")
+    : null;
+
   return (
     <Card
       className="relative h-[130px] rounded-md! px-5 py-4"
@@ -27,8 +35,14 @@ export default function TaskCard({ id, title, description, images }) {
         </Typography>
       </Stack>
       <div className="absolute inset-x-0 bottom-0 h-1/4 w-full border-t border-neutral-200">
-        <div className="h-full px-4 py-0.5 text-neutral-500">
+        <div className="flex h-full justify-between px-4 py-0.5">
           <AttachmentButton files={images} taskId={id} />
+          {formattedDeadline && (
+            <p className="flex items-center gap-1 text-xs font-medium text-neutral-400">
+              <span>Due :</span>
+              <span>{formattedDeadline}</span>
+            </p>
+          )}
         </div>
       </div>
     </Card>

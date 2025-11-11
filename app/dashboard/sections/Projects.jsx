@@ -49,6 +49,7 @@ export default function Projects() {
           key={project.id}
           project={project}
           isSelected={selectedProject === project.id}
+          setSelectedProject={setSelectedProject}
         />
       ))}
     </Stack>

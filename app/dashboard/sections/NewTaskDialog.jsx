@@ -1,15 +1,17 @@
 "use client";
 
+import DeadlineInput from "@/app/dashboard/sections/DeadlineInput";
+import CustomDatePicker from "@/app/dashboard/sections/DeadlineInput";
 import ImageInput from "@/components/ui/ImageInput";
 import { useSelectedProject } from "@/context/SelectedProjectContext";
 import { createTask } from "@/lib/services/tasks";
 import {
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Stack,
   TextField,
 } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -19,6 +21,7 @@ export default function NewTaskDialog({ open, onClose, status }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
+  const [deadline, setDeadline] = useState(null);
   const [error, setError] = useState(null);
   const { selectedProject } = useSelectedProject();
   const queryClient = useQueryClient();
@@ -29,6 +32,7 @@ export default function NewTaskDialog({ open, onClose, status }) {
     setDescription("");
     setImages([]);
     setError(null);
+    setDeadline(null);
   };
 
   const { mutate, isPending } = useMutation({
@@ -53,7 +57,14 @@ export default function NewTaskDialog({ open, onClose, status }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
-    mutate({ title, description, images, selectedProject, status });
+    mutate({
+      title,
+      description,
+      images,
+      selectedProject,
+      status,
+      deadline: deadline.toISOString(),
+    });
   };
 
   return (
@@ -75,56 +86,59 @@ export default function NewTaskDialog({ open, onClose, status }) {
       </DialogContentText>
       <DialogContent sx={{ px: "20px", pb: "10px" }}>
         <form onSubmit={handleSubmit}>
-          <TextField
-            autoFocus
-            required
-            size="small"
-            margin="dense"
-            label="Task Title"
-            fullWidth
-            variant="outlined"
-            slotProps={{
-              inputLabel: { sx: { fontSize: "14px" } },
-            }}
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            error={!!error?.title}
-            sx={{
-              "& .MuiInputBase-input": {
-                fontSize: "15px",
-              },
-            }}
-          />
-          <TextField
-            required
-            size="small"
-            margin="dense"
-            label="Description"
-            fullWidth
-            variant="outlined"
-            multiline
-            rows={3}
-            slotProps={{
-              inputLabel: { sx: { fontSize: "14px" } },
-            }}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            error={!!error?.description}
-            sx={{
-              "& .MuiInputBase-input": {
-                fontSize: "15px",
-                overflowY: "scroll",
-                scrollbarWidth: "none",
-                "&::-webkit-scrollbar": {
-                  display: "none",
+          <Stack spacing={2}>
+            <TextField
+              autoFocus
+              required
+              size="small"
+              margin="dense"
+              label="Task Title"
+              fullWidth
+              variant="outlined"
+              slotProps={{
+                inputLabel: { sx: { fontSize: "14px" } },
+              }}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              error={!!error?.title}
+              sx={{
+                "& .MuiInputBase-input": {
+                  fontSize: "15px",
                 },
-              },
-            }}
-          />
-          <ImageInput
-            imageFile={images}
-            onChange={(e) => setImages(Array.from(e.target.files))}
-          />
+              }}
+            />
+            <TextField
+              required
+              size="small"
+              margin="dense"
+              label="Description"
+              fullWidth
+              variant="outlined"
+              multiline
+              rows={3}
+              slotProps={{
+                inputLabel: { sx: { fontSize: "14px" } },
+              }}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              error={!!error?.description}
+              sx={{
+                "& .MuiInputBase-input": {
+                  fontSize: "15px",
+                  overflowY: "scroll",
+                  scrollbarWidth: "none",
+                  "&::-webkit-scrollbar": {
+                    display: "none",
+                  },
+                },
+              }}
+            />
+            <DeadlineInput deadline={deadline} setDeadline={setDeadline} />
+            <ImageInput
+              imageFile={images}
+              onChange={(e) => setImages(Array.from(e.target.files))}
+            />
+          </Stack>
           <div className="mt-8 flex w-full items-center justify-end gap-2 pb-2.5">
             <Button
               variant="outlined"
