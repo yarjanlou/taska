@@ -1,7 +1,6 @@
 "use client";
 
 import DeadlineInput from "@/app/dashboard/sections/DeadlineInput";
-import CustomDatePicker from "@/app/dashboard/sections/DeadlineInput";
 import ImageInput from "@/components/ui/ImageInput";
 import { useSelectedProject } from "@/context/SelectedProjectContext";
 import { createTask } from "@/lib/services/tasks";
@@ -18,21 +17,28 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 export default function NewTaskDialog({ open, onClose, status }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [images, setImages] = useState([]);
-  const [deadline, setDeadline] = useState(null);
+  const initialForm = {
+    title: "",
+    description: "",
+    images: [],
+    deadline: null,
+  };
+
+  const [form, setForm] = useState(initialForm);
   const [error, setError] = useState(null);
   const { selectedProject } = useSelectedProject();
   const queryClient = useQueryClient();
 
-  const close = () => {
-    onClose();
-    setTitle("");
-    setDescription("");
-    setImages([]);
-    setError(null);
-    setDeadline(null);
+  // validation
+  const validate = () => {
+    const newErrors = {};
+
+    if (!form.title.trim()) newErrors.title = "title is required.";
+    if (!form.description.trim())
+      newErrors.description = "description is required.";
+
+    setError(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const { mutate, isPending } = useMutation({
@@ -43,28 +49,23 @@ export default function NewTaskDialog({ open, onClose, status }) {
     },
   });
 
-  // validation
-  const validate = () => {
-    const newErrors = {};
+  const close = () => {
+    onClose();
+    setForm(initialForm);
+    setError(null);
+  };
 
-    if (!title.trim()) newErrors.title = "title is required.";
-    if (!description.trim()) newErrors.description = "description is required.";
-
-    setError(newErrors);
-    return Object.keys(newErrors).length === 0;
+  // handlers
+  const handleChange = (field) => (e) => {
+    const value =
+      field === "images" ? Array.from(e.target.files) : e.target.value;
+    setForm((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
-    mutate({
-      title,
-      description,
-      images,
-      selectedProject,
-      status,
-      deadline: deadline.toISOString(),
-    });
+    mutate({ ...form, status, selectedProject });
   };
 
   return (
@@ -98,8 +99,8 @@ export default function NewTaskDialog({ open, onClose, status }) {
               slotProps={{
                 inputLabel: { sx: { fontSize: "14px" } },
               }}
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={form.title}
+              onChange={handleChange("title")}
               error={!!error?.title}
               sx={{
                 "& .MuiInputBase-input": {
@@ -119,8 +120,8 @@ export default function NewTaskDialog({ open, onClose, status }) {
               slotProps={{
                 inputLabel: { sx: { fontSize: "14px" } },
               }}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={form.description}
+              onChange={handleChange("description")}
               error={!!error?.description}
               sx={{
                 "& .MuiInputBase-input": {
@@ -133,10 +134,15 @@ export default function NewTaskDialog({ open, onClose, status }) {
                 },
               }}
             />
-            <DeadlineInput deadline={deadline} setDeadline={setDeadline} />
+            <DeadlineInput
+              deadline={form.deadline}
+              setDeadline={(date) =>
+                setForm((prev) => ({ ...prev, deadline: date }))
+              }
+            />
             <ImageInput
-              imageFile={images}
-              onChange={(e) => setImages(Array.from(e.target.files))}
+              imageFile={form.images}
+              onChange={handleChange("images")}
             />
           </Stack>
           <div className="mt-8 flex w-full items-center justify-end gap-2 pb-2.5">
