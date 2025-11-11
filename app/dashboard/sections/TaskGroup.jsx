@@ -2,10 +2,20 @@ import { Box, Stack, Typography } from "@mui/material";
 import TaskCard from "./TaskCard";
 import NewTask from "./NewTask";
 import Loading from "@/components/ui/Loading";
+import { useDroppable } from "@dnd-kit/core";
 
-export default function TaskGroup({ title, color, tasks, status, isLoading }) {
+export default function TaskGroup({
+  title,
+  color,
+  tasks,
+  activeTask,
+  status,
+  isLoading,
+}) {
+  const { setNodeRef } = useDroppable({ id: status });
+
   return (
-    <div className="flex-1">
+    <div ref={setNodeRef} className="flex-1">
       <Stack direction="row" spacing={0.75} alignItems="center" mb={2}>
         <Box
           sx={{
@@ -26,7 +36,11 @@ export default function TaskGroup({ title, color, tasks, status, isLoading }) {
             <Loading />
           </div>
         ) : (
-          tasks?.map((task) => <TaskCard key={task.title} {...task} />)
+          tasks?.map((task) =>
+            activeTask?.id === task.id ? null : (
+              <TaskCard key={task.id} {...task} />
+            ),
+          )
         )}
       </Stack>
     </div>

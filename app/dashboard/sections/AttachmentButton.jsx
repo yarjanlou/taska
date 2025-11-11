@@ -62,6 +62,7 @@ export default function AttachmentButton({ files, taskId }) {
                     fill
                     className="w-full"
                     unoptimized
+                    priority
                   />
                 </div>
                 <div>

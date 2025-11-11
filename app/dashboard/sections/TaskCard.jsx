@@ -2,17 +2,38 @@ import { Card, Stack, Typography } from "@mui/material";
 import AttachmentButton from "./AttachmentButton";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { useDraggable } from "@dnd-kit/core";
 
 dayjs.extend(utc);
 
-export default function TaskCard({ id, title, description, images, deadline }) {
+export default function TaskCard({
+  id,
+  title,
+  description,
+  images,
+  deadline,
+  style,
+}) {
   const formattedDeadline = deadline
     ? dayjs.utc(deadline).local().format("MMM D, YYYY")
     : null;
 
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: id,
+  });
+
   return (
     <Card
-      className="relative h-[130px] rounded-md! px-5 py-4"
+      ref={setNodeRef}
+      {...listeners}
+      {...attributes}
+      style={{
+        transform: transform
+          ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+          : undefined,
+        ...style,
+      }}
+      className="relative h-[130px] cursor-grab rounded-md! px-5 py-4"
       variant="outlined"
     >
       <Stack spacing={1}>
