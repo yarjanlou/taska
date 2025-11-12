@@ -5,9 +5,11 @@ import { useSelectedProject } from "@/context/SelectedProjectContext";
 import { useEffect } from "react";
 import Loading from "@/components/ui/Loading";
 import { Stack, Typography } from "@mui/material";
+import { useProjects } from "@/context/ProjectsContext";
 
 export default function Projects() {
   const { selectedProject, setSelectedProject } = useSelectedProject();
+  const { setProjects } = useProjects();
   const {
     data: projects = [],
     isSuccess,
@@ -21,6 +23,7 @@ export default function Projects() {
     if (isSuccess && projects.length > 0 && !selectedProject) {
       setSelectedProject(projects[0].id);
     }
+    if (projects.length > 0) setProjects(projects);
   }, [isSuccess, projects, selectedProject, setSelectedProject]);
 
   if (isLoading) {

@@ -11,18 +11,24 @@ import {
   DragOverlay,
 } from "@dnd-kit/core";
 import { pb } from "@/lib/pocketbase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TaskCard from "./TaskCard";
+import { useTasks } from "@/context/TasksContext";
 
 export default function TasksContainer() {
   const [activeTask, setActiveTask] = useState(null);
   const { selectedProject } = useSelectedProject();
+  const { setTasks } = useTasks();
   const queryClient = useQueryClient();
 
   const { data: tasks, isLoading } = useQuery({
     queryKey: ["tasks", selectedProject],
     queryFn: () => getTasksByProject(selectedProject),
   });
+
+  useEffect(() => {
+    if (tasks) setTasks(tasks);
+  }, [tasks, setTasks]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
