@@ -1,6 +1,6 @@
 import ProgressBar from "@/components/ui/ProgressBar";
 import { Avatar, Stack, Typography } from "@mui/material";
-import BusinessIcon from "@mui/icons-material/Business";
+import { GiProgression } from "react-icons/gi";
 import { useTasks } from "@/context/TasksContext";
 import { useSelectedProject } from "@/context/SelectedProjectContext";
 import { useProjects } from "@/context/ProjectsContext";
@@ -20,10 +20,11 @@ export default function ProgressInfo() {
   const progress = calculateProgress(tasks);
 
   return (
-    <Stack spacing={1.5} className="mb-12">
+    <Stack spacing={1.5} className="mb-12 select-none">
       <Typography
         variant="h6"
-        sx={{ fontSize: "15px", px: "2px", textTransform: "capitalize" }}
+        sx={{ fontSize: "16px", fontWeight: "600", px: "2px" }}
+        className="text-neutral-700"
       >
         {projects.find((p) => p.id === selectedProject)?.title}
       </Typography>
@@ -32,21 +33,16 @@ export default function ProgressInfo() {
           sx={{
             bgcolor: "#e1e9ff",
             color: "#616060",
-            width: "32px",
+            width: "36px",
             height: "100%",
             borderRadius: "8px",
           }}
           variant="rounded"
         >
-          <BusinessIcon
-            sx={{
-              width: "18px",
-              height: "20px",
-            }}
-          />
+          <GiProgression className="size-4 text-gray-500" />
         </Avatar>
-        <div className="flex w-full flex-col gap-1.5 py-0.5">
-          <span className="text-[11px] font-medium text-neutral-500">
+        <div className="flex w-full flex-col gap-2 py-0.5">
+          <span className="text-xs font-medium text-neutral-500">
             {progress}% complete
           </span>
           <ProgressBar value={progress} variant="determinate" />

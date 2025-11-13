@@ -69,31 +69,44 @@ export default function NewTaskDialog({ open, onClose, status }) {
   };
 
   return (
-    <Dialog open={open} onClose={close} fullWidth maxWidth="xs">
+    <Dialog
+      open={open}
+      onClose={close}
+      fullWidth
+      maxWidth="xs"
+      sx={{
+        "& .MuiPaper-root": {
+          borderRadius: "10px",
+        },
+      }}
+    >
       <DialogTitle
         sx={{
-          fontSize: "16px",
-          fontWeight: "500",
-          pb: "6px",
-          pt: "20px",
-          px: "20px",
+          fontSize: "18px",
+          fontWeight: "600",
+          pb: "8px",
+          pt: "30px",
+          px: "32px",
         }}
+        className="text-neutral-600"
       >
-        Add New Task
+        New Task
       </DialogTitle>
-      <DialogContentText sx={{ px: "20px", fontSize: "14px", color: "#555" }}>
-        To create a new task, please enter the title and description below. You
-        can also attach an optional image.
+      <DialogContentText
+        sx={{ px: "32px", fontSize: "13px" }}
+        className="text-neutral-300"
+      >
+        Enter a title and description to create a new task. You can also add an
+        optional image or deadline.
       </DialogContentText>
-      <DialogContent sx={{ px: "20px", pb: "10px" }}>
+      <DialogContent sx={{ px: "30px", pb: "20px" }}>
         <form onSubmit={handleSubmit}>
           <Stack spacing={2}>
             <TextField
               autoFocus
-              required
               size="small"
               margin="dense"
-              label="Task Title"
+              label="Task Title*"
               fullWidth
               variant="outlined"
               slotProps={{
@@ -106,13 +119,21 @@ export default function NewTaskDialog({ open, onClose, status }) {
                 "& .MuiInputBase-input": {
                   fontSize: "15px",
                 },
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "6px",
+                  "&:hover fieldset": {
+                    borderColor: "#365dff",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderWidth: "1px",
+                  },
+                },
               }}
             />
             <TextField
-              required
               size="small"
               margin="dense"
-              label="Description"
+              label="Description*"
               fullWidth
               variant="outlined"
               multiline
@@ -152,11 +173,16 @@ export default function NewTaskDialog({ open, onClose, status }) {
               sx={{
                 px: "20px",
                 py: "5px",
-                fontSize: "13px",
-                fontWeight: "600",
+                fontSize: "14px",
+                fontWeight: "500",
+                textTransform: "capitalize",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "6px",
               }}
             >
-              Cancel
+              cancel
             </Button>
             <Button
               type="submit"
@@ -165,11 +191,19 @@ export default function NewTaskDialog({ open, onClose, status }) {
               sx={{
                 width: "140px",
                 py: "6px",
-                fontSize: "13px",
-                fontWeight: "600",
+                fontSize: "14px",
+                fontWeight: "500",
+                textTransform: "capitalize",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                ":hover": {
+                  backgroundColor: "#2e50e6e7",
+                },
+                borderRadius: "6px",
               }}
             >
-              {isPending ? "Creating..." : "Create"}
+              {isPending ? "creating..." : "create"}
             </Button>
           </div>
         </form>

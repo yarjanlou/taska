@@ -9,7 +9,7 @@ const ProgressBar = styled(LinearProgress)(({ theme }) => ({
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 5,
-    backgroundColor: "#1585ef",
+    backgroundColor: theme.palette.primary.main,
   },
 }));
 

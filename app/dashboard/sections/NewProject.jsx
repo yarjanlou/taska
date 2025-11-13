@@ -17,11 +17,14 @@ export default function NewProject() {
         startIcon={<AddIcon sx={{ fontSize: "16px" }} />}
         sx={{
           borderStyle: "dashed",
-          fontSize: "12px",
+          fontSize: "13px",
           fontWeight: "600",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <span className="mt-px inline-block">Add Project</span>
+        <span className="mt-0.5 inline-block">Add Project</span>
       </Button>
       <NewProjectDialog open={open} onClose={() => setOpen(false)} />
     </div>

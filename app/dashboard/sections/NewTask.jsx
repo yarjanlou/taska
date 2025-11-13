@@ -18,7 +18,7 @@ export default function NewTask({ status }) {
         sx={{
           bgcolor: "#fff",
           color: "#365dff",
-          fontSize: "12px",
+          fontSize: "13px",
           fontWeight: "600",
           py: "9px",
           border: "1px solid #e5e7eb",

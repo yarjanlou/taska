@@ -12,15 +12,29 @@ export default function DeadlineInput({ deadline, setDeadline }) {
             textField: {
               size: "small",
               fullWidth: true,
-
               sx: {
                 "& .MuiInputBase-root": { padding: "4px 8px" },
                 "& .MuiPickersInputBase-sectionContent": {
                   fontSize: "14px",
                   fontWeight: 500,
                 },
+                "& .MuiPickersInputBase-root": { borderRadius: "6px" },
                 "& .MuiPickersInputBase-sectionAfter": { fontSize: "13px" },
                 "& .MuiFormLabel-root": { fontSize: "14px" },
+                "&:hover .MuiPickersOutlinedInput-notchedOutline": {
+                  borderColor: "#365dff",
+                },
+                "&.Mui-focused .MuiPickersOutlinedInput-notchedOutline": {
+                  borderColor: "#365dff",
+                  borderWidth: "1px",
+                },
+                "& .MuiButtonBase-root": {
+                  padding: "6px",
+                },
+                "& .MuiSvgIcon-root": {
+                  width: "20px",
+                  height: "20px",
+                },
               },
             },
           }}

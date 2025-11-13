@@ -9,6 +9,7 @@ import {
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { useState } from "react";
 import Image from "next/image";
+import { TiAttachment } from "react-icons/ti";
 
 export default function AttachmentButton({ files, taskId }) {
   const [open, setOpen] = useState(false);
@@ -31,8 +32,17 @@ export default function AttachmentButton({ files, taskId }) {
           },
         }}
       >
-        <AttachFileIcon sx={{ fontSize: "16px", rotate: "45deg" }} />
-        <span className="ml-px text-xs font-medium">{files.length}</span>
+        {/* <AttachFileIcon
+          sx={{
+            fontSize: "16px",
+            rotate: "45deg",
+            "& path": {
+              strokeWidth: 2,
+            },
+          }}
+        /> */}
+        <TiAttachment className="size-4.5 stroke-[0.2]" />
+        <span className="ml-px text-xs font-semibold">{files.length}</span>
       </Button>
       <Dialog
         open={open}

@@ -37,7 +37,7 @@ export default function TaskCard({
       variant="outlined"
     >
       <Stack spacing={1}>
-        <Typography variant="span" className="text-[13px] font-semibold">
+        <Typography variant="span" className="text-sm font-semibold">
           {title}
         </Typography>
         <Typography
