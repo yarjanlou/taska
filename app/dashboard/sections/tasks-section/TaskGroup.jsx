@@ -16,7 +16,7 @@ export default function TaskGroup({
   const { setNodeRef } = useDroppable({ id: status });
 
   return (
-    <div ref={setNodeRef} className="flex min-h-0 flex-1 flex-col">
+    <div className="flex min-h-0 flex-1 flex-col">
       <Stack
         direction="row"
         spacing={0.75}
@@ -59,19 +59,19 @@ export default function TaskGroup({
       </Stack>
       <NewTask status={status} />
       <div className="flex-1 overflow-y-auto">
-        <Stack spacing={1}>
-          {isLoading ? (
-            <div className="py-2">
-              <Loading />
-            </div>
-          ) : (
-            tasks?.map((task) =>
+        {isLoading ? (
+          <div className="py-2">
+            <Loading />
+          </div>
+        ) : (
+          <Stack ref={setNodeRef} spacing={1}>
+            {tasks?.map((task) =>
               activeTask?.id === task.id ? null : (
                 <TaskCard key={task.id} {...task} />
               ),
-            )
-          )}
-        </Stack>
+            )}
+          </Stack>
+        )}
       </div>
     </div>
   );

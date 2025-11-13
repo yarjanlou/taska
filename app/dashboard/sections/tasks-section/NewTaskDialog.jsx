@@ -83,7 +83,7 @@ export default function NewTaskDialog({ open, onClose, status }) {
     >
       <DialogTitle
         sx={{
-          fontSize: "18px",
+          fontSize: { xs: "16px", md: "18px" },
           fontWeight: "600",
           pb: "8px",
           pt: { xs: "20px", md: "30px" },

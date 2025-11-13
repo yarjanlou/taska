@@ -8,6 +8,7 @@ import {
   useSensor,
   useSensors,
   DragOverlay,
+  TouchSensor,
 } from "@dnd-kit/core";
 import { pb } from "@/lib/pocketbase";
 import { useEffect, useState } from "react";
@@ -31,10 +32,16 @@ export default function TasksContainer() {
   }, [tasks, setTasks]);
 
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 5 },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 150, tolerance: 5 },
+    }),
   );
 
   const handleDragStart = ({ active }) => {
+    document.body.classList.add("dragging");
     const task = tasks.find((t) => t.id === active.id);
     setActiveTask(task || null);
   };

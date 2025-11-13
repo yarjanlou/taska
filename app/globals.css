@@ -24,6 +24,12 @@ body {
   overflow-x: hidden;
 } */
 
+body.dragging {
+  touch-action: none;
+}
+.task-card {
+  touch-action: none;
+}
 
 /* Loading */
 .animate-first-dot {

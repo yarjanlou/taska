@@ -36,6 +36,15 @@ export default function DeadlineInput({ deadline, setDeadline }) {
                   height: "20px",
                 },
               },
+              actionBar: {
+                sx: {
+                  "& .MuiButton-root": {
+                    fontSize: "12px", // 👈 smaller font size
+                    padding: "2px 8px", // 👈 tighter spacing
+                    textTransform: "capitalize",
+                  },
+                },
+              },
             },
           }}
           label="Deadline"
@@ -51,6 +60,7 @@ export default function DeadlineInput({ deadline, setDeadline }) {
             />
           )}
           disablePast
+          desktopModeMediaQuery="@media (min-width:600px)"
         />
       </LocalizationProvider>
     </div>

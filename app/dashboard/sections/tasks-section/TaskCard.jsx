@@ -33,7 +33,7 @@ export default function TaskCard({
           : undefined,
         ...style,
       }}
-      className="relative h-[115px] w-60 shrink-0 cursor-grab rounded-md! px-4 py-3 md:h-[130px] md:w-auto md:px-5 md:py-4"
+      className="task-card relative h-[115px] w-60 shrink-0 cursor-grab rounded-md! px-4 py-3 md:h-[130px] md:w-auto md:px-5 md:py-4"
       variant="outlined"
     >
       <Stack spacing={{ xs: 0.5, md: 1 }}>
@@ -60,7 +60,7 @@ export default function TaskCard({
         </Typography>
       </Stack>
       <div className="absolute inset-x-0 bottom-0 h-1/4 w-full border-t border-neutral-200">
-        <div className="flex h-full justify-between px-3.5 md:px-4 py-0.5">
+        <div className="flex h-full justify-between px-3.5 py-0.5 md:px-4">
           <AttachmentButton files={images} taskId={id} />
           {formattedDeadline && (
             <p className="flex items-center gap-1 text-[11px] font-medium text-neutral-400 md:text-xs">
