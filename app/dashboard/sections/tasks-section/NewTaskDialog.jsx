@@ -1,6 +1,6 @@
 "use client";
 
-import DeadlineInput from "@/app/dashboard/sections/DeadlineInput";
+import DeadlineInput from "@/app/dashboard/sections/tasks-section/DeadlineInput";
 import ImageInput from "@/components/ui/ImageInput";
 import { useSelectedProject } from "@/context/SelectedProjectContext";
 import { createTask } from "@/lib/services/tasks";

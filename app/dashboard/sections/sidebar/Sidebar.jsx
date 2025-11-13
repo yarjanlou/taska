@@ -1,7 +1,7 @@
 import { ProjectsProvider } from "@/context/ProjectsContext";
-import NewProject from "./NewProject";
-import ProgressInfo from "./ProgressInfo";
 import ProjectsContainer from "./ProjectsContainer";
+import ProgressInfo from "./ProgressInfo";
+import NewProject from "./NewProject";
 
 export default function Sidebar() {
   return (

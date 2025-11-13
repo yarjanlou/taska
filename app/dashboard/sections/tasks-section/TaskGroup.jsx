@@ -1,8 +1,9 @@
 import { Badge, Box, Stack, Typography } from "@mui/material";
-import TaskCard from "./TaskCard";
-import NewTask from "./NewTask";
+
 import Loading from "@/components/ui/Loading";
 import { useDroppable } from "@dnd-kit/core";
+import TaskCard from "./TaskCard";
+import NewTask from "./NewTask";
 
 export default function TaskGroup({
   title,

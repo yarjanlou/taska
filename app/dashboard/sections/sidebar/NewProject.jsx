@@ -2,8 +2,8 @@
 
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import NewProjectDialog from "./NewProjecDialog";
 import { useState } from "react";
+import NewProjectDialog from "./NewProjecDialog";
 
 export default function NewProject() {
   const [open, setOpen] = useState(false);

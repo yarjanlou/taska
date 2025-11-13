@@ -1,10 +1,10 @@
 "use client";
 
-import Sidebar from "./Sidebar";
-import Header from "./Header";
-import TasksContainer from "./TasksContainer";
 import { SelectedProjectProvider } from "@/context/SelectedProjectContext";
 import { TasksProvider } from "@/context/TasksContext";
+import Sidebar from "./sidebar/Sidebar";
+import Header from "./header/Header";
+import TasksContainer from "./tasks-section/TasksContainer";
 
 export default function UserDashboard() {
   return (

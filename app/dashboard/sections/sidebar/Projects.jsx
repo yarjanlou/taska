@@ -1,4 +1,4 @@
-import ProjectBox from "./ProjectBox";
+
 import { useQuery } from "@tanstack/react-query";
 import { getUserProjects } from "@/lib/services/projects";
 import { useSelectedProject } from "@/context/SelectedProjectContext";
@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import Loading from "@/components/ui/Loading";
 import { Stack, Typography } from "@mui/material";
 import { useProjects } from "@/context/ProjectsContext";
+import ProjectBox from "./ProjectBox";
 
 export default function Projects() {
   const { selectedProject, setSelectedProject } = useSelectedProject();

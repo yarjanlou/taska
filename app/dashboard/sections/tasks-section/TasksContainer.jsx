@@ -1,5 +1,4 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import TaskGroup from "./TaskGroup";
 import { useSelectedProject } from "@/context/SelectedProjectContext";
 import { getTasksByProject } from "@/lib/services/tasks";
 import {
@@ -14,6 +13,7 @@ import { pb } from "@/lib/pocketbase";
 import { useEffect, useState } from "react";
 import TaskCard from "./TaskCard";
 import { useTasks } from "@/context/TasksContext";
+import TaskGroup from "./TaskGroup";
 
 export default function TasksContainer() {
   const [activeTask, setActiveTask] = useState(null);

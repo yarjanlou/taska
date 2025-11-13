@@ -1,8 +1,8 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
-import NewTaskDialog from "./NewTaskDialog";
 import AddIcon from "@mui/icons-material/Add";
 import { useSelectedProject } from "@/context/SelectedProjectContext";
+import NewTaskDialog from "./NewTaskDialog";
 
 export default function NewTask({ status }) {
   const [open, setOpen] = useState(false);
