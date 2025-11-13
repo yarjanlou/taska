@@ -37,10 +37,10 @@ export default function StringAvatar({ name }) {
     <Avatar
       {...stringAvatar(name)}
       sx={{
-        width: "27px",
-        height: "27px",
-        fontSize: "12px",
-        fontWeight: "600",
+        width: { xs: "24px", lg: "27px" },
+        height: { xs: "24px", lg: "27px" },
+        fontSize: { xs: "10px", lg: "12px" },
+        fontWeight: { xs: "500", lg: "600" },
         ...stringAvatar(name).sx,
       }}
     />

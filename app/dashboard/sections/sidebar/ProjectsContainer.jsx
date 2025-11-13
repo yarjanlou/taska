@@ -4,10 +4,14 @@ import Projects from "./Projects";
 export default function ProjectsContainer() {
   return (
     <div>
-      <Stack spacing={1.5}>
+      <Stack spacing={{ xs: 1, md: 1.5 }}>
         <Typography
           variant="h6"
-          sx={{ fontSize: "16px", fontWeight: "600", px: "2px" }}
+          sx={{
+            fontSize: { xs: "14px", md: "16px" },
+            fontWeight: { xs: "500", md: "600" },
+            px: "2px",
+          }}
           className="text-neutral-700"
         >
           Projects

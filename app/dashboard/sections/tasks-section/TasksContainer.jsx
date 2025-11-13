@@ -60,15 +60,15 @@ export default function TasksContainer() {
   };
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative lg:w-full">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       >
-        <div className="px-10 py-6">
-          <div className="flex items-start gap-10">
+        <div className="py-6 md:px-10">
+          <div className="flex items-start gap-6 lg:gap-10">
             <TaskGroup
               title="To Do"
               color="#f87878"

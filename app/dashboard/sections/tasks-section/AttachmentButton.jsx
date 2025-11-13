@@ -27,6 +27,7 @@ export default function AttachmentButton({ files, taskId }) {
           p: "1px",
           width: "fit-content",
           justifyContent: "start",
+          alignItems: "center",
           "&:hover": {
             bgcolor: "transparent",
           },
@@ -41,8 +42,10 @@ export default function AttachmentButton({ files, taskId }) {
             },
           }}
         /> */}
-        <TiAttachment className="size-4.5 stroke-[0.2]" />
-        <span className="ml-px text-xs font-semibold">{files.length}</span>
+        <TiAttachment className="size-4 md:size-4.5 md:stroke-[0.2]" />
+        <span className="mt-px ml-px text-[11px] font-medium md:text-xs md:font-semibold">
+          {files.length}
+        </span>
       </Button>
       <Dialog
         open={open}

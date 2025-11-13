@@ -16,12 +16,12 @@ import { useState } from "react";
 export default function NewProjectDialog({ open, onClose }) {
   const [title, setTitle] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState(avatars[0].id);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
   const queryClient = useQueryClient();
 
   const close = () => {
     onClose();
-    setError(null);
+    setError(false);
     setTitle("");
     setSelectedAvatar(avatars[0].id);
   };
@@ -38,7 +38,7 @@ export default function NewProjectDialog({ open, onClose }) {
   const handlesubmit = (e) => {
     e.preventDefault();
     if (!title.trim()) {
-      setError("Project title is required.");
+      setError(true);
       return;
     }
     mutate({ title, avatar: selectedAvatar });
@@ -58,23 +58,28 @@ export default function NewProjectDialog({ open, onClose }) {
     >
       <DialogTitle
         sx={{
-          fontSize: "18px",
-          fontWeight: "500",
+          fontSize: { xs: "16px", md: "18px" },
+          fontWeight: { xs: "600", md: "500" },
           pb: "8px",
-          pt: "30px",
-          px: "32px",
+          pt: { xs: "20px", md: "26px" },
+          px: { xs: "24px", md: "32px" },
         }}
         className="text-neutral-600"
       >
         New Project
       </DialogTitle>
       <DialogContentText
-        sx={{ px: "32px", fontSize: "14px" }}
+        sx={{
+          px: { xs: "24px", md: "32px" },
+          fontSize: { xs: "13px", md: "14px" },
+        }}
         className="text-neutral-400"
       >
         To create a new project, please enter the project title below.
       </DialogContentText>
-      <DialogContent sx={{ pt: "5px", px: "30px", pb: "26px" }}>
+      <DialogContent
+        sx={{ pt: "5px", px: { xs: "22px", md: "30px" }, pb: "26px" }}
+      >
         <form onSubmit={handlesubmit}>
           <TextField
             autoFocus
@@ -89,7 +94,10 @@ export default function NewProjectDialog({ open, onClose }) {
             }}
             error={!!error}
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => {
+              setTitle(e.target.value);
+              setError(null);
+            }}
             sx={{
               "& .MuiInputBase-input": {
                 fontSize: "15px",
@@ -110,7 +118,7 @@ export default function NewProjectDialog({ open, onClose }) {
             <Typography sx={{ fontSize: "14px" }} className="text-neutral-600">
               Choose Avatar:
             </Typography>
-            <div className="flex gap-2">
+            <div className="flex justify-between gap-2 sm:justify-start">
               {avatars.map((a) => {
                 const Icon = a.icon;
                 const isSelected = selectedAvatar === a.id;
@@ -141,14 +149,15 @@ export default function NewProjectDialog({ open, onClose }) {
               })}
             </div>
           </div>
-          <div className="mt-6 flex w-full items-center justify-end gap-2">
+          <div className="mt-6 flex w-full items-center justify-end gap-2 pb-1 md:mt-8 md:pb-2">
             <Button
               variant="outlined"
               onClick={close}
               sx={{
                 px: "20px",
                 py: "5px",
-                fontSize: "14px",
+                width: { xs: "40%", md: "auto" },
+                fontSize: { xs: "13px", md: "14px" },
                 fontWeight: "500",
                 textTransform: "capitalize",
                 borderRadius: "6px",
@@ -161,13 +170,13 @@ export default function NewProjectDialog({ open, onClose }) {
               disabled={isPending}
               variant="contained"
               sx={{
-                width: "140px",
+                width: { xs: "60%", md: "140px" },
                 py: "6px",
-                fontSize: "14px",
+                fontSize: { xs: "13px", md: "14px" },
                 fontWeight: "500",
                 textTransform: "capitalize",
                 borderRadius: "6px",
-                ":hover": {
+                "&:not(:disabled):hover": {
                   backgroundColor: "#2e50e6e7",
                 },
               }}

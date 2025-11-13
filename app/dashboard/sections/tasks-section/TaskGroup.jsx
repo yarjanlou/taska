@@ -16,12 +16,12 @@ export default function TaskGroup({
   const { setNodeRef } = useDroppable({ id: status });
 
   return (
-    <div ref={setNodeRef} className="flex-1">
+    <div ref={setNodeRef} className="flex min-h-0 flex-1 flex-col">
       <Stack
         direction="row"
         spacing={0.75}
         alignItems="center"
-        mb={2}
+        mb={{ xs: 1.5, md: 2 }}
         className="w-full select-none"
       >
         <Box
@@ -33,7 +33,7 @@ export default function TaskGroup({
           }}
         />
         <Typography
-          sx={{ fontSize: "14px", fontWeight: "600" }}
+          sx={{ fontSize: { xs: "13px", md: "14px" }, fontWeight: "600" }}
           className="text-neutral-700"
           variant="h6"
         >
@@ -45,7 +45,7 @@ export default function TaskGroup({
             "& .MuiBadge-badge": {
               bgcolor: color,
               color: "white",
-              fontSize: "13px",
+              fontSize: { xs: "11px", md: "13px" },
               fontWeight: "500",
               minWidth: "18px",
               height: "18px",
@@ -58,19 +58,21 @@ export default function TaskGroup({
         </Badge>
       </Stack>
       <NewTask status={status} />
-      <Stack spacing={1}>
-        {isLoading ? (
-          <div className="py-2">
-            <Loading />
-          </div>
-        ) : (
-          tasks?.map((task) =>
-            activeTask?.id === task.id ? null : (
-              <TaskCard key={task.id} {...task} />
-            ),
-          )
-        )}
-      </Stack>
+      <div className="flex-1 overflow-y-auto">
+        <Stack spacing={1}>
+          {isLoading ? (
+            <div className="py-2">
+              <Loading />
+            </div>
+          ) : (
+            tasks?.map((task) =>
+              activeTask?.id === task.id ? null : (
+                <TaskCard key={task.id} {...task} />
+              ),
+            )
+          )}
+        </Stack>
+      </div>
     </div>
   );
 }

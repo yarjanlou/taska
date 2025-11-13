@@ -23,7 +23,12 @@ export default function ProgressInfo() {
     <Stack spacing={1.5} className="mb-12 select-none">
       <Typography
         variant="h6"
-        sx={{ fontSize: "16px", fontWeight: "600", px: "2px" }}
+        sx={{
+          fontSize: "16px",
+          fontWeight: "600",
+          px: "2px",
+          textTransform: "capitalize",
+        }}
         className="text-neutral-700"
       >
         {projects.find((p) => p.id === selectedProject)?.title}

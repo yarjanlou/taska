@@ -14,24 +14,35 @@ export default function NewTask({ status }) {
         disabled={selectedProject == null}
         variant="contained"
         fullWidth
-        startIcon={<AddIcon sx={{ fontSize: "16px" }} />}
+        startIcon={
+          <AddIcon
+            sx={{
+              width: { xs: "16px", md: "20px" },
+              height: { xs: "16px", md: "20px" },
+            }}
+          />
+        }
         sx={{
           bgcolor: "#fff",
           color: "#365dff",
-          fontSize: "13px",
+          fontSize: { xs: "11px", md: "13px" },
           fontWeight: "600",
           py: "9px",
           border: "1px solid #e5e7eb",
           boxShadow: "none",
           borderRadius: "6px",
-          mb: 2,
+          display: "flex",
+          alignItems: "center",
+          mb: { xs: 1.5, md: 2 },
           "&:hover": {
             bgcolor: "#cad4fb2b",
             boxShadow: "none",
           },
+          width: { xs: "240px", md: "100%" },
+          flexShrink: "0",
         }}
       >
-        <span className="mt-0.5 inline-block">Add New Task</span>
+        <span className="inline-block md:mt-0.5">Add New Task</span>
       </Button>
       <NewTaskDialog
         open={open}

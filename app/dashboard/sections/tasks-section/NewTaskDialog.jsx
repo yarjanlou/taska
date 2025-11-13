@@ -60,6 +60,7 @@ export default function NewTaskDialog({ open, onClose, status }) {
     const value =
       field === "images" ? Array.from(e.target.files) : e.target.value;
     setForm((prev) => ({ ...prev, [field]: value }));
+    if (field in error) setError((prev) => ({ ...prev, [field]: "" }));
   };
 
   const handleSubmit = (e) => {
@@ -85,23 +86,23 @@ export default function NewTaskDialog({ open, onClose, status }) {
           fontSize: "18px",
           fontWeight: "600",
           pb: "8px",
-          pt: "30px",
-          px: "32px",
+          pt: { xs: "20px", md: "30px" },
+          px: { xs: "22px", md: "32px" },
         }}
         className="text-neutral-600"
       >
         New Task
       </DialogTitle>
       <DialogContentText
-        sx={{ px: "32px", fontSize: "13px" }}
+        sx={{ px: { xs: "22px", md: "32px" }, fontSize: "13px" }}
         className="text-neutral-300"
       >
         Enter a title and description to create a new task. You can also add an
         optional image or deadline.
       </DialogContentText>
-      <DialogContent sx={{ px: "30px", pb: "20px" }}>
+      <DialogContent sx={{ px: { xs: "20px", md: "32px" }, pb: "20px" }}>
         <form onSubmit={handleSubmit}>
-          <Stack spacing={2}>
+          <Stack spacing={{ xs: 1, md: 2 }}>
             <TextField
               autoFocus
               size="small"
@@ -166,13 +167,14 @@ export default function NewTaskDialog({ open, onClose, status }) {
               onChange={handleChange("images")}
             />
           </Stack>
-          <div className="mt-8 flex w-full items-center justify-end gap-2 pb-2.5">
+          <div className="mt-8 flex w-full items-center justify-center gap-2 pb-2 sm:justify-end md:pb-2.5">
             <Button
               variant="outlined"
               onClick={close}
               sx={{
                 px: "20px",
                 py: "5px",
+                width: { xs: "40%", md: "auto" },
                 fontSize: "14px",
                 fontWeight: "500",
                 textTransform: "capitalize",
@@ -189,7 +191,7 @@ export default function NewTaskDialog({ open, onClose, status }) {
               disabled={isPending || selectedProject == null}
               variant="contained"
               sx={{
-                width: "140px",
+                width: { xs: "60%", md: "140px" },
                 py: "6px",
                 fontSize: "14px",
                 fontWeight: "500",
@@ -197,7 +199,7 @@ export default function NewTaskDialog({ open, onClose, status }) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                ":hover": {
+                "&:not(:disabled):hover": {
                   backgroundColor: "#2e50e6e7",
                 },
                 borderRadius: "6px",
