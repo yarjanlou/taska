@@ -75,7 +75,7 @@ export default function TasksContainer() {
         onDragEnd={handleDragEnd}
       >
         <div className="py-6 md:px-10">
-          <div className="flex items-start gap-6 lg:gap-10">
+          <div className="flex min-w-max items-start gap-6 lg:gap-10">
             <TaskGroup
               title="To Do"
               color="#f87878"

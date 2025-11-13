@@ -39,7 +39,7 @@ export default function TaskCard({
       <Stack spacing={{ xs: 0.5, md: 1 }}>
         <Typography
           variant="span"
-          className="text-[13px] font-semibold md:text-sm"
+          className="text-[13px] font-semibold lg:text-sm"
         >
           {title}
         </Typography>

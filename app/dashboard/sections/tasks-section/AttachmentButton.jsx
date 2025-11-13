@@ -47,6 +47,7 @@ export default function AttachmentButton({ files, taskId }) {
           {files.length}
         </span>
       </Button>
+
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
@@ -54,36 +55,48 @@ export default function AttachmentButton({ files, taskId }) {
         fullWidth
       >
         <DialogTitle
-          sx={{ fontSize: "18px" }}
+          sx={{
+            fontSize: "18px",
+            px: { xs: "20px", md: "24px" },
+            pb: { xs: "10px", md: "16px" },
+          }}
           className="flex items-center gap-1 text-neutral-600"
         >
           <AttachFileIcon sx={{ fontSize: "18px", rotate: "45deg" }} />
           Attachments
         </DialogTitle>
-        <DialogContent>
-          <Stack spacing={0.5}>
-            {files.map((file, index) => (
-              <Box
-                key={index}
-                className="flex cursor-pointer items-center gap-4 rounded-md px-2 py-1.5 hover:bg-neutral-100"
-                onClick={() => setSelectedFile(file)}
-              >
-                <div className="relative size-10 cursor-pointer overflow-hidden rounded-md">
-                  <Image
-                    src={`${baseUrl}/api/files/tasks/${taskId}/${file}`}
-                    alt="attachment image"
-                    fill
-                    className="w-full"
-                    unoptimized
-                    priority
-                  />
-                </div>
-                <div>
-                  <p className="text-[13px] text-neutral-500">{file}</p>
-                </div>
-              </Box>
-            ))}
-          </Stack>
+        <DialogContent sx={{ px: { xs: "20px", md: "24px" } }}>
+          {!files.length ? (
+            <p className="text-sm font-medium text-neutral-500 px-1">
+              No attachment file.
+            </p>
+          ) : (
+            <Stack spacing={0.5}>
+              {files.map((file, index) => (
+                <Box
+                  key={index}
+                  className="flex cursor-pointer items-center gap-4 rounded-md px-2 py-1.5 hover:bg-neutral-100"
+                  onClick={() => setSelectedFile(file)}
+                >
+                  <div className="relative size-10 shrink-0 cursor-pointer overflow-hidden rounded-md">
+                    <Image
+                      src={`${baseUrl}/api/files/tasks/${taskId}/${file}`}
+                      alt="attachment image"
+                      fill
+                      className="w-full"
+                      unoptimized
+                      priority
+                    />
+                  </div>
+                  <div>
+                    <p className="max-w-[200px] truncate text-xs font-medium text-neutral-500 sm:max-w-full md:text-[13px]">
+                      {file}
+                    </p>
+                  </div>
+                </Box>
+              ))}
+            </Stack>
+          )}
         </DialogContent>
       </Dialog>
 

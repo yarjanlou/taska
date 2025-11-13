@@ -25,7 +25,7 @@ export default function NewTask({ status }) {
         sx={{
           bgcolor: "#fff",
           color: "#365dff",
-          fontSize: { xs: "11px", md: "13px" },
+          fontSize: { xs: "12px", md: "13px" },
           fontWeight: "600",
           py: "9px",
           border: "1px solid #e5e7eb",
@@ -42,7 +42,7 @@ export default function NewTask({ status }) {
           flexShrink: "0",
         }}
       >
-        <span className="inline-block md:mt-0.5">Add New Task</span>
+        <span className="mt-px inline-block md:mt-0.5">Add New Task</span>
       </Button>
       <NewTaskDialog
         open={open}
