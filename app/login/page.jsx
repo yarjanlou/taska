@@ -77,8 +77,13 @@ export default function LoginPage() {
                 required
                 label="Email"
                 id="email"
-                valuse={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setErrors((prev) => {
+                    return { ...prev, email: "" };
+                  });
+                }}
                 fullWidth
                 size="small"
                 error={!!errors?.email}
