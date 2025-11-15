@@ -13,6 +13,9 @@ export default function DeadlineInput({ deadline, setDeadline }) {
               size: "small",
               fullWidth: true,
               sx: {
+                "& .MuiInputBase-input": {
+                  color: "#242424",
+                },
                 "& .MuiInputBase-root": { padding: "4px 8px" },
                 "& .MuiPickersInputBase-sectionContent": {
                   fontSize: "14px",

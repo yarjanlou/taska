@@ -24,7 +24,7 @@ export const theme = createTheme({
           },
         },
         input: {
-          color: "#525252",
+          color: "#242424",
         },
       },
     },
