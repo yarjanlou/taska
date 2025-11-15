@@ -13,7 +13,7 @@ export default function ProjectBox({
 
   return (
     <Box
-      className={`flex cursor-pointer items-center gap-2.5 rounded-md border border-gray-200 px-1.5 py-1 transition-all duration-200 ${isSelected ? "bg-primary/90" : "bg-white"}`}
+      className={`flex cursor-pointer items-center gap-2.5 rounded-md border px-1.5 py-1 transition-all duration-200 ${isSelected ? "bg-primary/90 border-primary/90" : "border-gray-200 bg-white"}`}
       onClick={() => {
         setSelectedProject(id);
         setTimeout(() => {

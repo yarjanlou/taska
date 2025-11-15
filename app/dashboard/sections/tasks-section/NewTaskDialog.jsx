@@ -104,7 +104,6 @@ export default function NewTaskDialog({ open, onClose, status }) {
         <form onSubmit={handleSubmit}>
           <Stack spacing={{ xs: 1, md: 2 }}>
             <TextField
-              autoFocus
               size="small"
               margin="dense"
               label="Task Title*"

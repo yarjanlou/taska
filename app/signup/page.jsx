@@ -41,9 +41,6 @@ export default function SignupPage() {
     onSuccess: () => {
       router.push("/dashboard");
     },
-    // onError: (error) => {
-    //   console.error("Signup error:", error);
-    // },
   });
 
   const handleSubmit = async (e) => {
@@ -53,7 +50,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="relative flex size-full items-center justify-center pt-25 md:pt-30">
+    <div className="relative flex size-full items-center justify-center pt-25 md:pt-40">
       <Card className="w-full max-w-[500px] px-4 shadow-none! md:rounded-xl! md:border md:border-gray-200 md:p-8 md:shadow-md!">
         <Typography
           sx={{ fontWeight: "bold", fontSize: "20px", mb: "8px" }}
@@ -67,29 +64,59 @@ export default function SignupPage() {
             <Stack spacing={2}>
               <TextField
                 variant="outlined"
-                label="Email*"
+                label="Email"
                 size="small"
+                required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setErrors((prev) => {
+                    return { ...prev, email: "" };
+                  });
+                }}
                 error={!!errors?.email}
                 helperText={errors?.email}
-                sx={{ "& .MuiFormHelperText-root": { mx: "1px" } }}
+                sx={{
+                  "& .MuiFormHelperText-root": { mx: "1px" },
+                  "& .MuiInputBase-input": {
+                    fontSize: { sm: "14px", md: "15px" },
+                  },
+                }}
               />
 
               <TextField
                 variant="outlined"
-                label="Name*"
+                label="Name"
                 size="small"
+                required
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  setErrors((prev) => {
+                    return { ...prev, name: "" };
+                  });
+                }}
                 error={!!errors?.name}
                 helperText={errors?.name}
-                sx={{ "& .MuiFormHelperText-root": { mx: "1px" } }}
+                sx={{
+                  "& .MuiFormHelperText-root": { mx: "1px" },
+                  "& .MuiInputBase-input": {
+                    fontSize: { sm: "14px", md: "15px" },
+                  },
+                }}
               />
 
               <PasswordInput
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setErrors((prev) => {
+                    return {
+                      ...prev,
+                      password: e.target.value.length >= 8 ? "" : prev.password,
+                    };
+                  });
+                }}
                 error={!!errors?.password}
                 helperText={errors?.password}
               />

@@ -23,6 +23,9 @@ export const theme = createTheme({
             borderWidth: "1px",
           },
         },
+        input: {
+          color: "#525252",
+        },
       },
     },
     MuiPickersOutlinedInput: {
@@ -35,6 +38,19 @@ export const theme = createTheme({
           "&.Mui-focused .MuiPickersOutlinedInput-notchedOutline": {
             borderColor: "#365dff",
             borderWidth: "1px",
+          },
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& .MuiFormHelperText-root": { mx: "1px" },
+          "& .MuiInputBase-input": {
+            fontSize: { sm: "14px", md: "15px" },
+          },
+          "& .MuiInputLabel-root": {
+            fontSize: "14px",
           },
         },
       },

@@ -85,7 +85,6 @@ export default function NewProjectDialog({ open, onClose }) {
       >
         <form onSubmit={handlesubmit}>
           <TextField
-            autoFocus
             autoComplete="false"
             size="small"
             margin="dense"

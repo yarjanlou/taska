@@ -9,7 +9,12 @@ import {
 import IconButton from "@mui/material/IconButton";
 import { useState } from "react";
 
-export default function PasswordInput({ value, onChange, error, helperText }) {
+export default function PasswordInput({
+  value,
+  onChange,
+  error = null,
+  helperText = "",
+}) {
   // password visibility toggle
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -25,10 +30,22 @@ export default function PasswordInput({ value, onChange, error, helperText }) {
     <FormControl
       variant="outlined"
       size="small"
+      required
       fullWidth
+      sx={{
+        "& .MuiInputLabel-root": {
+          fontSize: "14px",
+        },
+        "& .MuiOutlinedInput-input": {
+          fontSize: { sm: "14px", md: "15px" },
+        },
+        "& .MuiFormHelperText-root": {
+          mx: "1px",
+        },
+      }}
       error={error}
     >
-      <InputLabel htmlFor="password">Password*</InputLabel>
+      <InputLabel htmlFor="password">Password</InputLabel>
       <OutlinedInput
         id="password"
         value={value}
