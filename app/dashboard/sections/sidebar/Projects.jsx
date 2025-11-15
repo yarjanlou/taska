@@ -45,7 +45,12 @@ export default function Projects() {
     return (
       <Typography
         variant="body2"
-        sx={{ fontSize: "13px", px: "2px", py: "6px", color: "text.secondary" }}
+        sx={{
+          fontSize: "13px",
+          px: "2px",
+          py: { xs: "0px", md: "6px" },
+          color: "text.secondary",
+        }}
       >
         No projects available.
       </Typography>

@@ -9,7 +9,7 @@ export default function MobileSidebar({ open, onClose }) {
   return (
     <Drawer open={open} onClose={onClose}>
       <div className="flex h-full w-[250px] flex-col py-4 pr-6 pl-4">
-        <div className="mb-5 flex items-center justify-between">
+        <div className="mb-6 flex items-center justify-between">
           <UserInfo />
           <IoClose onClick={onClose} className="mt-[1.5px]" />
         </div>
