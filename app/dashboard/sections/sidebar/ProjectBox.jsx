@@ -3,10 +3,11 @@ import { avatars } from "@/lib/constants/avatars";
 import { useMobileSidebar } from "@/context/MobileSidebarContext";
 
 export default function ProjectBox({
-  project: { title, id, avatar },
+  project,
   isSelected,
   setSelectedProject,
 }) {
+  const { title, id, avatar } = project;
   const avatarData = avatars.find((a) => a.id === avatar) || avatars[0];
   const Icon = avatarData.icon;
   const { close } = useMobileSidebar();
@@ -15,7 +16,7 @@ export default function ProjectBox({
     <Box
       className={`flex cursor-pointer items-center gap-2.5 rounded-md border px-1.5 py-1 transition-all duration-200 ${isSelected ? "bg-primary/90 border-primary/90" : "border-gray-200 bg-white"}`}
       onClick={() => {
-        setSelectedProject(id);
+        setSelectedProject(project);
         setTimeout(() => {
           close();
         }, 300);

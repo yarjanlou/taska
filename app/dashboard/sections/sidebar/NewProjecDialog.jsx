@@ -31,7 +31,7 @@ export default function NewProjectDialog({ open, onClose }) {
   const { mutate, isPending } = useMutation({
     mutationFn: createProject,
     onSuccess: (newProject) => {
-      setSelectedProject(newProject.id);
+      setSelectedProject(newProject);
       close();
       setTitle("");
       queryClient.invalidateQueries({ queryKey: ["projects"] });

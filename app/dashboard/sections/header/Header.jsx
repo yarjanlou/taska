@@ -1,11 +1,10 @@
 import HamburgerButton from "./HamburgerButton";
-import { useProjects } from "@/context/ProjectsContext";
 import { useSelectedProject } from "@/context/SelectedProjectContext";
 import { Typography } from "@mui/material";
 import UserInfo from "@/components/ui/UserInfo";
 
 export default function Header() {
-  const { projects } = useProjects();
+
   const { selectedProject } = useSelectedProject();
 
   return (
@@ -17,7 +16,7 @@ export default function Header() {
         <div className="flex gap-4 lg:hidden">
           <HamburgerButton />
           <Typography sx={{ textTransform: "capitalize", fontWeight: "500" }}>
-            {projects.find((p) => p.id === selectedProject)?.title}
+            {selectedProject?.title}
           </Typography>
         </div>
       </div>

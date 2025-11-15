@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 const SelectedProjectContext = createContext();
 
 export function SelectedProjectProvider({ children }) {
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState({});
 
   return (
     <SelectedProjectContext.Provider

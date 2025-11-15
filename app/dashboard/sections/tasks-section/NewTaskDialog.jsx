@@ -45,7 +45,9 @@ export default function NewTaskDialog({ open, onClose, status }) {
     mutationFn: createTask,
     onSuccess: () => {
       close();
-      queryClient.invalidateQueries({ queryKey: ["tasks", selectedProject] });
+      queryClient.invalidateQueries({
+        queryKey: ["tasks", selectedProject.id],
+      });
     },
   });
 
@@ -66,7 +68,7 @@ export default function NewTaskDialog({ open, onClose, status }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
-    mutate({ ...form, status, selectedProject });
+    mutate({ ...form, status, selectedProject: selectedProject.id });
   };
 
   return (

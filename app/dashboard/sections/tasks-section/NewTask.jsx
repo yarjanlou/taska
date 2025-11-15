@@ -11,7 +11,7 @@ export default function NewTask({ status }) {
     <>
       <Button
         onClick={() => setOpen(true)}
-        disabled={selectedProject == null}
+        disabled={!Object.keys(selectedProject).length}
         variant="contained"
         fullWidth
         startIcon={

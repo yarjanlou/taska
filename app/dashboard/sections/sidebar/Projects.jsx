@@ -4,12 +4,10 @@ import { useSelectedProject } from "@/context/SelectedProjectContext";
 import { useEffect } from "react";
 import Loading from "@/components/ui/Loading";
 import { Stack, Typography } from "@mui/material";
-import { useProjects } from "@/context/ProjectsContext";
 import ProjectBox from "./ProjectBox";
 
 export default function Projects() {
   const { selectedProject, setSelectedProject } = useSelectedProject();
-  const { setProjects } = useProjects();
   const {
     data: projects = [],
     isSuccess,
@@ -26,11 +24,9 @@ export default function Projects() {
   useEffect(() => {
     if (!isSuccess || sortedProjects.length === 0) return;
 
-    if (!selectedProject) {
-      setSelectedProject(sortedProjects[0].id);
+    if (!Object.keys(selectedProject).length) {
+      setSelectedProject(sortedProjects[0]);
     }
-
-    setProjects(sortedProjects);
   }, [isSuccess]);
 
   if (isLoading) {
@@ -63,7 +59,7 @@ export default function Projects() {
         <ProjectBox
           key={project.id}
           project={project}
-          isSelected={selectedProject === project.id}
+          isSelected={selectedProject.id === project.id}
           setSelectedProject={setSelectedProject}
         />
       ))}

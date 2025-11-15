@@ -3,12 +3,10 @@ import { Avatar, Stack, Typography } from "@mui/material";
 import { GiProgression } from "react-icons/gi";
 import { useTasks } from "@/context/TasksContext";
 import { useSelectedProject } from "@/context/SelectedProjectContext";
-import { useProjects } from "@/context/ProjectsContext";
 
 export default function ProgressInfo() {
   const { selectedProject } = useSelectedProject();
   const { tasks } = useTasks();
-  const { projects } = useProjects();
 
   const calculateProgress = (tasks) => {
     if (!tasks || tasks.length === 0) return 0;
@@ -31,7 +29,7 @@ export default function ProgressInfo() {
         }}
         className="text-neutral-700"
       >
-        {projects.find((p) => p.id === selectedProject)?.title}
+        {selectedProject?.title}
       </Typography>
       <div className="flex items-center gap-3">
         <Avatar

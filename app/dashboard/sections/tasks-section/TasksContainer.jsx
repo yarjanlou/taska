@@ -23,8 +23,8 @@ export default function TasksContainer() {
   const queryClient = useQueryClient();
 
   const { data: tasks, isLoading } = useQuery({
-    queryKey: ["tasks", selectedProject],
-    queryFn: () => getTasksByProject(selectedProject),
+    queryKey: ["tasks", selectedProject.id],
+    queryFn: () => getTasksByProject(selectedProject.id),
   });
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export default function TasksContainer() {
     const updatedTasks = tasks.map((t) =>
       t.id === task.id ? { ...t, status: over.id } : t,
     );
-    queryClient.setQueryData(["tasks", selectedProject], updatedTasks);
+    queryClient.setQueryData(["tasks", selectedProject.id], updatedTasks);
 
     try {
       await pb.collection("tasks").update(task.id, { status: over.id });
