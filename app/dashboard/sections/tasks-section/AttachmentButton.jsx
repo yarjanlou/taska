@@ -40,6 +40,7 @@ export default function AttachmentButton({ files, taskId }) {
         open={open}
         onClose={() => setOpen(false)}
         taskId={taskId}
+        files={files}
       />
     </>
   );

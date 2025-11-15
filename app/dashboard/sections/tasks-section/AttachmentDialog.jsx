@@ -2,20 +2,16 @@ import { Box, Dialog, DialogContent, DialogTitle, Stack } from "@mui/material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
+import { useState } from "react";
 
-export default function AttachmentDialog(open, onClose , taskId) {
+export default function AttachmentDialog({ open, onClose, taskId, files }) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const baseUrl = process.env.NEXT_PUBLIC_PB_URL;
 
   return (
     <>
-      <Dialog
-        open={open}
-        onClose={onClose}
-        maxWidth="sm"
-        fullWidth
-      >
+      <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
         <DialogTitle
           sx={{
             fontSize: "18px",
@@ -30,7 +26,7 @@ export default function AttachmentDialog(open, onClose , taskId) {
           </div>
           <span
             className="cursor-pointer rounded-md p-1 transition-all hover:bg-neutral-100"
-            onClick={() => setOpen(false)}
+            onClick={onClose}
           >
             <IoClose />
           </span>
