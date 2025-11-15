@@ -45,16 +45,22 @@ export default function TaskGroup({
             "& .MuiBadge-badge": {
               bgcolor: color,
               color: "white",
-              fontSize: { xs: "11px", md: "13px" },
+              fontSize: { xs: "11px", md: "12px" },
               fontWeight: "500",
-              minWidth: "18px",
-              height: "18px",
-              borderRadius: "9px",
+              width: "20px",
+              height: "20px",
+              minWidth: "20px",
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transform: "none",
+              position: "static",
               p: 0,
             },
           }}
         >
-          <Box sx={{ width: 0, height: 0, mr: 1.5 }} />
+          <Box sx={{ width: 0, height: 0, mr: 1 }} />
         </Badge>
       </Stack>
       <NewTask status={status} />

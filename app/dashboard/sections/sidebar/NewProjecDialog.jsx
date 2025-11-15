@@ -1,3 +1,4 @@
+import { useSelectedProject } from "@/context/SelectedProjectContext";
 import { avatars } from "@/lib/constants/avatars";
 import { createProject } from "@/lib/services/projects";
 import {
@@ -17,6 +18,7 @@ export default function NewProjectDialog({ open, onClose }) {
   const [title, setTitle] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState(avatars[0].id);
   const [error, setError] = useState(false);
+  const { setSelectedProject } = useSelectedProject();
   const queryClient = useQueryClient();
 
   const close = () => {
@@ -28,7 +30,8 @@ export default function NewProjectDialog({ open, onClose }) {
 
   const { mutate, isPending } = useMutation({
     mutationFn: createProject,
-    onSuccess: () => {
+    onSuccess: (newProject) => {
+      setSelectedProject(newProject.id);
       close();
       setTitle("");
       queryClient.invalidateQueries({ queryKey: ["projects"] });

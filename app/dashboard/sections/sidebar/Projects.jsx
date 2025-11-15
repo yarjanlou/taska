@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { getUserProjects } from "@/lib/services/projects";
 import { useSelectedProject } from "@/context/SelectedProjectContext";
@@ -20,12 +19,19 @@ export default function Projects() {
     queryFn: getUserProjects,
   });
 
+  const sortedProjects = [...projects].sort(
+    (a, b) => new Date(b.created) - new Date(a.created),
+  );
+
   useEffect(() => {
-    if (isSuccess && projects.length > 0 && !selectedProject) {
-      setSelectedProject(projects[0].id);
+    if (!isSuccess || sortedProjects.length === 0) return;
+
+    if (!selectedProject) {
+      setSelectedProject(sortedProjects[0].id);
     }
-    if (projects.length > 0) setProjects(projects);
-  }, [isSuccess, projects, selectedProject, setSelectedProject]);
+
+    setProjects(sortedProjects);
+  }, [isSuccess]);
 
   if (isLoading) {
     return (
@@ -35,7 +41,7 @@ export default function Projects() {
     );
   }
 
-  if (projects.length === 0 && !isLoading) {
+  if (sortedProjects.length === 0 && !isLoading) {
     return (
       <Typography
         variant="body2"
@@ -48,7 +54,7 @@ export default function Projects() {
 
   return (
     <Stack spacing={1}>
-      {projects.map((project) => (
+      {sortedProjects.map((project) => (
         <ProjectBox
           key={project.id}
           project={project}
