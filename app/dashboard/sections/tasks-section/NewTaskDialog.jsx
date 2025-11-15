@@ -104,7 +104,7 @@ export default function NewTaskDialog({ open, onClose, status }) {
       </DialogContentText>
       <DialogContent sx={{ px: { xs: "20px", md: "32px" }, pb: "20px" }}>
         <form onSubmit={handleSubmit}>
-          <Stack spacing={{ xs: 1, md: 2 }}>
+          <Stack spacing={{ xs: 1.5, md: 2 }}>
             <TextField
               size="small"
               margin="dense"
