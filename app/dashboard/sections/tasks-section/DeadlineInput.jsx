@@ -21,13 +21,13 @@ export default function DeadlineInput({ deadline, setDeadline }) {
                 "& .MuiPickersInputBase-root": { borderRadius: "6px" },
                 "& .MuiPickersInputBase-sectionAfter": { fontSize: "13px" },
                 "& .MuiFormLabel-root": { fontSize: "14px" },
-                "&:hover .MuiPickersOutlinedInput-notchedOutline": {
-                  borderColor: "#365dff",
-                },
-                "&.Mui-focused .MuiPickersOutlinedInput-notchedOutline": {
-                  borderColor: "#365dff",
-                  borderWidth: "1px",
-                },
+                // "&:hover .MuiPickersOutlinedInput-notchedOutline": {
+                //   borderColor: "#365dff",
+                // },
+                // "&.Mui-focused .MuiPickersOutlinedInput-notchedOutline": {
+                //   borderColor: "#365dff",
+                //   borderWidth: "1px",
+                // },
                 "& .MuiButtonBase-root": {
                   padding: "6px",
                 },
@@ -39,8 +39,8 @@ export default function DeadlineInput({ deadline, setDeadline }) {
               actionBar: {
                 sx: {
                   "& .MuiButton-root": {
-                    fontSize: "12px", // 👈 smaller font size
-                    padding: "2px 8px", // 👈 tighter spacing
+                    fontSize: "12px",
+                    padding: "2px 8px",
                     textTransform: "capitalize",
                   },
                 },

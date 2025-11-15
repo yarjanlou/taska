@@ -2,6 +2,7 @@ import "./globals.css";
 
 import { Montserrat } from "next/font/google";
 import Providers from "./providers/Providers";
+import { Toaster } from "react-hot-toast";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${montserrat.className} min-h-screen`}>
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );

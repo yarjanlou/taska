@@ -109,24 +109,12 @@ export default function NewTaskDialog({ open, onClose, status }) {
               label="Task Title*"
               fullWidth
               variant="outlined"
-              slotProps={{
-                inputLabel: { sx: { fontSize: "14px" } },
-              }}
               value={form.title}
               onChange={handleChange("title")}
               error={!!error?.title}
               sx={{
                 "& .MuiInputBase-input": {
                   fontSize: "15px",
-                },
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "6px",
-                  "&:hover fieldset": {
-                    borderColor: "#365dff",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderWidth: "1px",
-                  },
                 },
               }}
             />
@@ -138,9 +126,6 @@ export default function NewTaskDialog({ open, onClose, status }) {
               variant="outlined"
               multiline
               rows={3}
-              slotProps={{
-                inputLabel: { sx: { fontSize: "14px" } },
-              }}
               value={form.description}
               onChange={handleChange("description")}
               error={!!error?.description}
@@ -175,12 +160,6 @@ export default function NewTaskDialog({ open, onClose, status }) {
                 py: "5px",
                 width: { xs: "40%", md: "auto" },
                 fontSize: "14px",
-                fontWeight: "500",
-                textTransform: "capitalize",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: "6px",
               }}
             >
               cancel
@@ -193,15 +172,9 @@ export default function NewTaskDialog({ open, onClose, status }) {
                 width: { xs: "60%", md: "140px" },
                 py: "6px",
                 fontSize: "14px",
-                fontWeight: "500",
-                textTransform: "capitalize",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
                 "&:not(:disabled):hover": {
                   backgroundColor: "#2e50e6e7",
                 },
-                borderRadius: "6px",
               }}
             >
               {isPending ? "creating..." : "create"}

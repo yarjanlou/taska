@@ -55,5 +55,21 @@ export const theme = createTheme({
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontWeight: 500,
+          textTransform: "capitalize",
+          borderRadius: "6px",
+        },
+        contained: {
+          "&:not(:disabled):hover": {
+            // backgroundColor: "#2e50e6e7",
+            boxShadow: "none",
+          },
+          boxShadow: "none",
+        },
+      },
+    },
   },
 });

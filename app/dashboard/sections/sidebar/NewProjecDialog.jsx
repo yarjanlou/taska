@@ -105,15 +105,6 @@ export default function NewProjectDialog({ open, onClose }) {
                 fontSize: "15px",
                 color: "#525252",
               },
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "6px",
-                "&:hover fieldset": {
-                  borderColor: "#365dff",
-                },
-                "&.Mui-focused fieldset": {
-                  borderWidth: "1px",
-                },
-              },
             }}
           />
           <div className="mt-4 flex flex-col gap-2">
@@ -160,9 +151,6 @@ export default function NewProjectDialog({ open, onClose }) {
                 py: "5px",
                 width: { xs: "40%", md: "auto" },
                 fontSize: { xs: "13px", md: "14px" },
-                fontWeight: "500",
-                textTransform: "capitalize",
-                borderRadius: "6px",
               }}
             >
               cancel
@@ -175,9 +163,6 @@ export default function NewProjectDialog({ open, onClose }) {
                 width: { xs: "60%", md: "140px" },
                 py: "6px",
                 fontSize: { xs: "13px", md: "14px" },
-                fontWeight: "500",
-                textTransform: "capitalize",
-                borderRadius: "6px",
                 "&:not(:disabled):hover": {
                   backgroundColor: "#2e50e6e7",
                 },

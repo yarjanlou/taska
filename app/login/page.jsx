@@ -13,6 +13,7 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -39,11 +40,22 @@ export default function LoginPage() {
     onSuccess: () => {
       router.push("/dashboard");
     },
+    onError: (err) => {
+      toast.error("No account found with this email or password", {
+        style: {
+          fontSize: "13px",
+          fontWeight: "500",
+          marginTop: "10px",
+        },
+        // position: "bottom-center",
+      });
+    },
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
+
     mutate({ email, password });
   };
 
