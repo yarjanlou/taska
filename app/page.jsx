@@ -13,12 +13,19 @@ export default function Home() {
   return (
     <div className="flex h-full min-h-screen w-full -translate-y-15 items-center justify-center">
       <div spacing={2} className="flex flex-col items-center gap-2">
-        <Typography variant="h1" sx={{ fontWeight: "600" }}>
+        <Typography
+          variant="h1"
+          sx={{ fontWeight: "600", fontSize: { xs: "60px", md: "96px" } }}
+        >
           Taska
         </Typography>
         <Typography
           variant="body2"
-          sx={{ color: "#858383e3", fontSize: "17px", mb: "20px" }}
+          sx={{
+            color: "#858383e3",
+            fontSize: { xs: "15px", md: "17px" },
+            mb: "20px",
+          }}
         >
           Organize your tasks, boost your productivity
         </Typography>
