@@ -17,7 +17,7 @@ export default function NewProject() {
         startIcon={<AddIcon sx={{ fontSize: "16px" }} />}
         sx={{
           borderStyle: "dashed",
-          fontSize: { xs: "12px", md: "13px" },
+          fontSize: "13px",
           fontWeight: "600",
           display: "flex",
           justifyContent: "center",

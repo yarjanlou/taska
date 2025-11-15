@@ -18,7 +18,7 @@ export default function UserDashboard() {
               <Sidebar />
               <div className="grid h-screen grid-rows-[60px_1fr] bg-gray-100">
                 <Header />
-                <div className="flex overflow-x-scroll px-5 md:px-0 lg:overflow-x-hidden lg:overflow-y-auto">
+                <div className="flex overflow-x-scroll px-5 md:px-0 lg:overflow-x-hidden">
                   <TasksContainer />
                 </div>
               </div>
