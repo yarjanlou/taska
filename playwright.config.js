@@ -5,7 +5,7 @@ export default defineConfig({
   testDir: "./tests",
   testMatch: ["**/*.test.js"],
   timeout: 30000,
-  fullyParallel: true,
+  fullyParallel: false,
   use: {
     baseURL: "http://localhost:3000",
     headless: false,

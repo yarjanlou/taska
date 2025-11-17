@@ -41,6 +41,7 @@ export default function NewTask({ status }) {
           width: { xs: "240px", md: "100%" },
           flexShrink: "0",
         }}
+        data-testid={`add-${status}-task-btn`}
       >
         <span className="mt-px inline-block md:mt-0.5">Add New Task</span>
       </Button>

@@ -35,6 +35,7 @@ export default function TaskCard({
       }}
       className="task-card relative h-[115px] w-60 shrink-0 cursor-grab rounded-md! px-4 py-3 md:h-[130px] md:w-auto md:px-5 md:py-4"
       variant="outlined"
+      data-testid="task-card"
     >
       <Stack spacing={{ xs: 0.5, md: 1 }}>
         <Typography

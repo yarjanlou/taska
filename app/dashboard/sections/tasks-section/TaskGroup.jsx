@@ -70,7 +70,12 @@ export default function TaskGroup({
             <Loading />
           </div>
         ) : (
-          <Stack ref={setNodeRef} spacing={1}>
+          <Stack
+            ref={setNodeRef}
+            data-testid={`${status}-column`}
+            spacing={1}
+            className="min-h-20"
+          >
             {tasks?.map((task) =>
               activeTask?.id === task.id ? null : (
                 <TaskCard key={task.id} {...task} />

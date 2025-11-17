@@ -53,8 +53,9 @@ export default function NewProjectDialog({ open, onClose }) {
       onClose={close}
       fullWidth
       maxWidth="xs"
-      sx={{
-        "& .MuiPaper-root": {
+      PaperProps={{
+        "data-testid": "project-dialog",
+        sx: {
           borderRadius: "10px",
         },
       }}
@@ -91,9 +92,6 @@ export default function NewProjectDialog({ open, onClose }) {
             label="Project Title*"
             fullWidth
             variant="outlined"
-            slotProps={{
-              inputLabel: { sx: { fontSize: "14px" } },
-            }}
             error={!!error}
             value={title}
             onChange={(e) => {
@@ -105,6 +103,9 @@ export default function NewProjectDialog({ open, onClose }) {
                 fontSize: "15px",
                 color: "#525252",
               },
+            }}
+            InputProps={{
+              inputProps: { "data-testid": "project-title-input" },
             }}
           />
           <div className="mt-4 flex flex-col gap-2">
@@ -152,6 +153,7 @@ export default function NewProjectDialog({ open, onClose }) {
                 width: { xs: "40%", md: "auto" },
                 fontSize: { xs: "13px", md: "14px" },
               }}
+              data-testid="cancel-project-btn"
             >
               cancel
             </Button>
@@ -167,6 +169,7 @@ export default function NewProjectDialog({ open, onClose }) {
                   backgroundColor: "#2e50e6e7",
                 },
               }}
+              data-testid="create-project-btn"
             >
               {isPending ? "creating..." : "create"}
             </Button>

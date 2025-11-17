@@ -23,6 +23,7 @@ export default function NewProject() {
           justifyContent: "center",
           alignItems: "center",
         }}
+        data-testid="add-project-btn"
       >
         <span className="mt-0.5 inline-block">Add Project</span>
       </Button>

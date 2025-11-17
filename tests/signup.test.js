@@ -1,49 +1,63 @@
 // @ts-check
 import { test, expect } from "@playwright/test";
 
-test("shows validation errors on empty submit", async ({ page }) => {
-  await page.goto("/signup");
-
-  await page.getByRole("button", { name: /sign up/i }).click();
-
-  await expect(page.getByTestId("email-error")).toHaveText(
-    "email is required.",
-  );
-  await expect(page.getByTestId("name-error")).toHaveText("name is required.");
-  await expect(page.getByTestId("password-error")).toHaveText(
-    "password is required.",
-  );
+const fields = (page) => ({
+  email: page.getByTestId("email-input"),
+  name: page.getByTestId("name-input"),
+  password: page.getByTestId("password-input"),
+  submit: page.getByRole("button", { name: /sign up/i }),
 });
 
-test("shows password length error", async ({ page }) => {
-  await page.goto("/signup");
+async function signup(page, { email, name, password }) {
+  const f = fields(page);
 
-  await page.getByTestId("email-input").fill("user@mail.com");
-  await page.getByTestId("name-input").fill("Reihaneh");
-  await page.getByTestId("password-input").fill("short");
+  await f.email.fill(email);
+  await f.name.fill(name);
+  await f.password.fill(password);
 
-  await page.getByRole("button", { name: /sign up/i }).click();
+  await f.submit.click();
+}
 
-  await expect(page.getByTestId("password-error")).toHaveText(
-    "password must be at least 8 characters.",
-  );
-});
+test.describe("Signup Page", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/signup");
+  });
 
-test("signs up → auto-login → redirects to dashboard", async ({ page }) => {
-  await page.goto("/signup");
+  test("shows validation errors on empty submit", async ({ page }) => {
+    await page.getByRole("button", { name: /sign up/i }).click();
 
-  const uniqueEmail = `user${Date.now()}@mail.com`;
+    await expect(page.getByTestId("email-error")).toHaveText(
+      "email is required.",
+    );
+    await expect(page.getByTestId("name-error")).toHaveText(
+      "name is required.",
+    );
+    await expect(page.getByTestId("password-error")).toHaveText(
+      "password is required.",
+    );
+  });
 
-  const email = page.getByTestId("email-input");
-  const name = page.getByTestId("name-input");
-  const password = page.getByTestId("password-input");
+  test("shows password length error", async ({ page }) => {
+    await signup(page, {
+      email: "user@mail.com",
+      name: "Reihaneh",
+      password: "short",
+    });
 
-  // await Promise.all([email.waitFor(), name.waitFor(), password.waitFor()]);
+    await expect(page.getByTestId("password-error")).toHaveText(
+      "password must be at least 8 characters.",
+    );
+  });
 
-  await email.fill(uniqueEmail);
-  await name.fill("Test User");
-  await password.fill("password123");
+  test("signs up → auto-login → redirects to dashboard", async ({ page }) => {
+    const uniqueEmail = `user${Date.now()}@mail.com`;
 
-  await page.getByRole("button", { name: /sign up/i }).click();
-  await expect(page).toHaveURL("/dashboard");
+    await signup(page, {
+      email: uniqueEmail,
+      name: "Test User",
+      password: "password123",
+    });
+
+    await expect(page).toHaveURL("/dashboard");
+  });
 });

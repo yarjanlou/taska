@@ -21,6 +21,7 @@ export default function ProjectBox({
           close();
         }, 300);
       }}
+      data-testid="project-card"
     >
       <Avatar
         sx={{

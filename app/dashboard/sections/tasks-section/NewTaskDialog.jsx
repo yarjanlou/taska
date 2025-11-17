@@ -77,8 +77,9 @@ export default function NewTaskDialog({ open, onClose, status }) {
       onClose={close}
       fullWidth
       maxWidth="xs"
-      sx={{
-        "& .MuiPaper-root": {
+      PaperProps={{
+        "data-testid": "task-dialog",
+        sx: {
           borderRadius: "10px",
         },
       }}
@@ -117,8 +118,11 @@ export default function NewTaskDialog({ open, onClose, status }) {
               sx={{
                 "& .MuiInputBase-input": {
                   fontSize: "15px",
-                  fontWeight: "500"
+                  fontWeight: "500",
                 },
+              }}
+              InputProps={{
+                inputProps: { "data-testid": "task-title-input" },
               }}
             />
             <TextField
@@ -142,6 +146,9 @@ export default function NewTaskDialog({ open, onClose, status }) {
                   },
                 },
               }}
+              InputProps={{
+                inputProps: { "data-testid": "task-desc-input" },
+              }}
             />
             <DeadlineInput
               deadline={form.deadline}
@@ -164,6 +171,7 @@ export default function NewTaskDialog({ open, onClose, status }) {
                 width: { xs: "40%", md: "auto" },
                 fontSize: "14px",
               }}
+              data-testid="cancel-task-btn"
             >
               cancel
             </Button>
@@ -179,6 +187,7 @@ export default function NewTaskDialog({ open, onClose, status }) {
                   backgroundColor: "#2e50e6e7",
                 },
               }}
+              data-testid="create-task-btn"
             >
               {isPending ? "creating..." : "create"}
             </Button>
