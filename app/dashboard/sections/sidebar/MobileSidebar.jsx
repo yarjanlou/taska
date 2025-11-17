@@ -13,8 +13,10 @@ export default function MobileSidebar({ open, onClose }) {
           <UserInfo />
           <IoClose onClick={onClose} className="mt-[1.5px]" />
         </div>
-        <ProjectsContainer />
-        <div className="flex-1"></div>
+        <div className="no-scrollbar max-h-[62vh] overflow-y-auto">
+          <ProjectsContainer />
+        </div>
+        <div className="flex-1" />
         <NewProject />
       </div>
     </Drawer>
