@@ -28,7 +28,7 @@ export default function LoginPage() {
     if (!email.trim()) newErrors.email = "email is required.";
     if (!password.trim()) newErrors.password = "password is required.";
     else if (password.length < 8)
-      newErrors.password = "Password must be at least 8 characters.";
+      newErrors.password = "password must be at least 8 characters.";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -70,7 +70,7 @@ export default function LoginPage() {
           Login
         </Typography>
         <CardContent>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} noValidate>
             <Stack spacing={2}>
               <TextField
                 variant="outlined"
@@ -96,6 +96,12 @@ export default function LoginPage() {
                   "& .MuiInputLabel-root": {
                     fontSize: "14px",
                   },
+                }}
+                InputProps={{
+                  inputProps: { "data-testid": "email-input" },
+                }}
+                FormHelperTextProps={{
+                  "data-testid": "email-error",
                 }}
               />
 

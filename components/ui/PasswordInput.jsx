@@ -72,9 +72,12 @@ export default function PasswordInput({
           </InputAdornment>
         }
         label="Password*"
+        inputProps={{ "data-testid": "password-input" }}
       />
       {error && (
-        <FormHelperText sx={{ mx: "1px" }}>{helperText}</FormHelperText>
+        <FormHelperText data-testid="password-error" sx={{ mx: "1px" }}>
+          {helperText}
+        </FormHelperText>
       )}
     </FormControl>
   );

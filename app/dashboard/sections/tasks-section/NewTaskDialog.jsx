@@ -117,6 +117,7 @@ export default function NewTaskDialog({ open, onClose, status }) {
               sx={{
                 "& .MuiInputBase-input": {
                   fontSize: "15px",
+                  fontWeight: "500"
                 },
               }}
             />
