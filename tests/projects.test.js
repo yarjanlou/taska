@@ -1,6 +1,6 @@
 // @ts-check
 import { test, expect } from "@playwright/test";
-import { login } from "./helpers/flow";
+import { createProject, login } from "./helpers/flow";
 
 const fields = (page) => ({
   addBtn: page.getByTestId("add-project-btn"),
@@ -45,14 +45,7 @@ test.describe("Projects", () => {
     const f = fields(page);
     const projectName = "Project " + Date.now();
 
-    await f.addBtn.click();
-    await expect(f.dialog).toBeVisible();
-
-    await f.titleInput.fill(projectName);
-
-    await f.createBtn.click();
-
-    await expect(f.dialog).not.toBeVisible();
+    await createProject(page, projectName);
 
     await expect(
       page.locator(`[data-testid="project-card"]`, { hasText: projectName }),
