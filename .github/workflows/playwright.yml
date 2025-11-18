@@ -30,8 +30,10 @@ jobs:
 
       - name: Start Next.js
         run: |
+          npm run build
           npm run start &
           npx wait-on http://localhost:3000
+          sleep 5
 
       - name: Run E2E tests
         run: npx playwright test --reporter=list

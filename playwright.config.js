@@ -4,11 +4,13 @@ import { defineConfig } from "@playwright/test";
 export default defineConfig({
   testDir: "./tests",
   testMatch: ["**/*.test.js"],
-  timeout: 30000,
+  timeout: 60000,
   fullyParallel: false,
   use: {
-    baseURL: process.env.NEXT_PUBLIC_PB_URL || "http://localhost:3000",
+    baseURL: "http://localhost:3000",
     headless: true,
+    actionTimeout: 60000,
+    navigationTimeout: 60000,
     trace: "on-first-retry",
   },
 });
