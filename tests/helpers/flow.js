@@ -1,13 +1,3 @@
-export async function signup(page, { email, name, password }) {
-  await page.goto("/signup");
-
-  await page.getByTestId("email-input").fill(email);
-  await page.getByTestId("name-input").fill(name);
-  await page.getByTestId("password-input").fill(password);
-
-  await page.click('button[type="submit"]');
-}
-
 export async function login(page, { email, password }) {
   await page.goto("/login");
 

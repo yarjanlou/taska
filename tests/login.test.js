@@ -31,6 +31,33 @@ test.describe("Login Page", () => {
     );
   });
 
+  test("email empty shows email error", async ({ page }) => {
+    const f = fields(page);
+
+    await f.password.fill("password123");
+    await f.submit.click();
+
+    await expect(page.getByText("email is required.")).toBeVisible();
+  });
+
+  test("password empty shows password error", async ({ page }) => {
+    const f = fields(page);
+
+    await f.email.fill("test@gmil.com");
+    await f.submit.click();
+
+    await expect(page.getByText("password is required.")).toBeVisible();
+  });
+
+  test("shows invalid email error", async ({ page }) => {
+    const f = fields(page);
+
+    await f.email.fill("test@gmail");
+    await f.submit.click();
+
+    await expect(page.getByText("please enter a valid email.")).toBeVisible();
+  });
+
   test("shows password length error", async ({ page }) => {
     await login(page, { email: "test@mail.com", password: "short" });
 
@@ -42,9 +69,11 @@ test.describe("Login Page", () => {
   test("fails with wrong credentials", async ({ page }) => {
     await login(page, { email: "wrong@mail.com", password: "password123" });
 
-    await expect(
-      page.getByText("No account found with this email or password"),
-    ).toBeVisible();
+    const toast = page.getByText(
+      "No account found with this email or password.",
+    );
+
+    await expect(toast).toBeVisible({ timeout: 5000 });
   });
 
   test("logs in successfully and redirects to dashboard", async ({ page }) => {

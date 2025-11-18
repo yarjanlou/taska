@@ -7,8 +7,8 @@ export default defineConfig({
   timeout: 30000,
   fullyParallel: false,
   use: {
-    baseURL: "http://localhost:3000",
-    headless: false,
+    baseURL: process.env.NEXT_PUBLIC_PB_URL || "http://localhost:3000",
+    headless: true,
     trace: "on-first-retry",
   },
 });
