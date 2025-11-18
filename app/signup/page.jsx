@@ -13,6 +13,9 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
+
+export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
@@ -25,7 +28,11 @@ export default function SignupPage() {
   const validate = () => {
     const newErrors = {};
 
-    if (!email.trim()) newErrors.email = "email is required.";
+    if (!email.trim()) {
+      newErrors.email = "email is required.";
+    } else if (!emailRegex.test(email.trim())) {
+      newErrors.email = "please enter a valid email.";
+    }
     if (!name.trim()) newErrors.name = "name is required.";
     if (!password.trim()) newErrors.password = "password is required.";
     else if (password.length < 8)
@@ -40,6 +47,16 @@ export default function SignupPage() {
     mutationFn: signup,
     onSuccess: () => {
       router.push("/dashboard");
+    },
+    onError: (err) => {
+      if ((err.email.message = "Value must be unique."))
+        toast.error("This email is already in use.", {
+          style: {
+            fontSize: "13px",
+            fontWeight: "500",
+            marginTop: "10px",
+          },
+        });
     },
   });
 

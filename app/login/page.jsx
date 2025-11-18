@@ -14,6 +14,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { emailRegex } from "../signup/page";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -25,7 +26,11 @@ export default function LoginPage() {
   const validate = () => {
     const newErrors = {};
 
-    if (!email.trim()) newErrors.email = "email is required.";
+    if (!email.trim()) {
+      newErrors.email = "email is required.";
+    } else if (!emailRegex.test(email.trim())) {
+      newErrors.email = "please enter a valid email.";
+    }
     if (!password.trim()) newErrors.password = "password is required.";
     else if (password.length < 8)
       newErrors.password = "password must be at least 8 characters.";
@@ -41,7 +46,7 @@ export default function LoginPage() {
       router.push("/dashboard");
     },
     onError: (err) => {
-      toast.error("No account found with this email or password", {
+      toast.error("No account found with this email or password.", {
         style: {
           fontSize: "13px",
           fontWeight: "500",
