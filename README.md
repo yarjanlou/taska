@@ -1,64 +1,77 @@
-# Positivus Landing Page
+# 🗂️ Task & Project Manager
 
-This repository contains an implementation of the **Positivus Landing
-Page** designed in Figma. The project is built using **Next.js**,
-**Tailwind CSS**, and **Framer Motion** to deliver a modern, responsive,
-and animated landing experience.
+### 📖 Overview
 
-![App Preview](./public/images/preview.png)
+This is a **Task & Project Manager** web application where users can organize projects and manage tasks effectively. Each task can have a **title**, **description**, **attachments**, **deadline**, and a **status**.  
 
-## 🚀 Tech Stack
+The app provides a **drag-and-drop interface** to update task status between **To Do**, **In Progress**, and **Done** columns. It is fully **responsive** and optimized for both desktop and mobile devices.
 
--   **Next.js** -- App Router architecture, optimized performance,
-    SEO-ready
--   **Tailwind CSS** -- Modern utility-first styling
--   **Framer Motion** -- Smooth and interactive animations
+Built with **Next.js**, **MUI**, and **React Query**, this application combines modern frontend technologies with a smooth user experience.
 
-## ✨ Features
+---
 
--   Fully responsive for **mobile** and **desktop** breakpoints
--   Smooth animations based on the original Figma prototype
--   Component-based architecture
--   Modern UI and clean code structure
+### 🚀 Features
 
-## 📁 Folder Structure
+- ✅ Create multiple projects  
+- ✅ Add tasks to any project with:
+  - Title  
+  - Description  
+  - Images/attachments  
+  - Deadline  
+- ✅ Drag & drop tasks between three statuses: **To Do**, **In Progress**, **Done**  
+- ✅ Fully responsive layout for desktop and mobile  
+- ✅ Built with **Next.js**, **MUI**, and **React Query** for state management and server interactions  
+- ✅ Smooth UX for task management  
 
-    src/
-     ┣ app/
-     ┣ components/
-     ┗ public/
+---
 
-## 🛠️ Getting Started
+### 🎨 User Interface
 
-``` bash
-# Install dependencies
-npm install
+The app has **three main columns** representing task statuses:
 
-# Run the development server
-npm run dev
-```
+1. **To Do** – Tasks yet to be started  
+2. **In Progress** – Tasks currently being worked on  
+3. **Done** – Completed tasks  
 
-## 📦 Build for Production
+Users can drag and drop tasks between columns to **update status in real time**.  
 
-``` bash
-npm run build
-npm start
-```
+Attachments (images) and deadlines are visible within each task card.
 
-## 🖼️ Design Source
+---
 
-Figma template: [Positivus Landing](https://www.figma.com/community/file/1230604708032389430/positivus-landing-page-design)
+### 💻 Technologies Used
 
-## 🤝 Contributing
+| Layer | Technology |
+|-------|------------|
+| Frontend | Next.js, React |
+| UI | MUI (Material UI) |
+| State & Data Fetching | React Query |
+| Styling | Tailwind / MUI components |
+| Drag & Drop | DnD Kit |
 
-Pull requests and improvements are welcome! Feel free to open issues or
-suggestions.
+---
 
-## 📄 License
+### ⚙️ How It Works
 
-This project is for learning and personal portfolio use. Commercial
-usage of the original Figma design may require proper licensing.
+1. **Project Creation:** Users can create multiple projects. Each project acts as a container for its tasks.  
+2. **Task Creation:** Within a project, users can define a task with:
+   - Title  
+   - Description  
+   - Attach images  
+   - Set a deadline  
+3. **Task Status Management:**  
+   - Tasks are displayed in columns according to status (**To Do**, **In Progress**, **Done**)  
+   - Drag & drop updates the status automatically  
+4. **Responsive UI:** Works seamlessly on desktop, tablet, and mobile devices.
 
-------------------------------------------------------------------------
+---
 
-Made with ❤️ using **Next.js**, **Tailwind CSS**, and **Framer Motion**.
+### ⏱️ Time and Space Complexity (Conceptual)
+
+| Operation | Complexity |
+|-----------|------------|
+| Fetch projects/tasks | O(n) (linear with number of tasks) |
+| Create / Update task | O(1) |
+| Drag & drop | O(1) for DOM updates, async updates handled by React Query |
+
+
